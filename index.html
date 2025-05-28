@@ -436,83 +436,138 @@
         }
 
         
-@media (max-width: 768px) {
-    /* ========== 导航栏修复 ========== */
-    /* 固定导航栏时给hero留出空间 */
-    .hero {
-        padding-top: 80px !important;  /* 根据导航栏高度调整 */
-        margin-top: 0;
-        transition: padding-top 0.3s ease; /* 平滑过渡 */
-    }
-
-    /* 导航栏容器 */
-    .header-content {
-        flex-direction: column;
-        text-align: center;
-        padding: 15px 0;
-        transition: all 0.3s ease;
-    }
-    
-    /* 导航菜单 */
-    nav ul {
-        margin-top: 15px;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 10px;
-        padding: 0 15px;
-    }
-    
-    /* 导航项 */
-    nav ul li {
-        margin: 0;
-        padding: 5px 0;
-    }
-    
-    /* 导航按钮 */
-    .btn-nav {
-        padding: 8px 20px;
-        background: var(--gradient);
-        color: white !important;
-        border-radius: 20px;
-        margin: 10px auto 0;
-        display: block;
-        width: max-content;
-        transition: all 0.3s;
-    }
-    
-    .btn-nav:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(106, 139, 173, 0.4);
-    }
-
-    /* ========== 滚动时样式 ========== */
-    header.scrolled {
-        padding: 3px 0 !important;
-    }
-    
-    header.scrolled + .hero {
-        padding-top: 60px !important; /* 滚动后减少留白 */
-    }
-    
-    header.scrolled .logo img {
-        height: 30px !important;
-    }
-    
-    header.scrolled nav ul {
-        margin-top: 5px !important;
-    }
-
-    /* ========== 其他原有样式 ========== */
-    .hero h2 {
-        font-size: 2rem;
-    }
-    
-    .btn-group {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-    }
-    
+        @media (max-width: 768px) {
+            /* 1. 全局布局修复 */
+            body {
+                padding-top: 70px; /* 为固定导航栏预留空间 */
+            }
+            
+            /* 2. 导航栏改造 */
+            header {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 70px;
+                background: rgba(255,255,255,0.98);
+                backdrop-filter: blur(10px);
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                transition: all 0.3s ease;
+                z-index: 1000;
+            }
+            
+            .header-content {
+                display: flex;
+                align-items: center;
+                height: 100%;
+                padding: 0 15px;
+            }
+            
+            .logo {
+                flex: 1;
+                display: flex;
+                align-items: center;
+                min-width: 0;
+            }
+            
+            .logo img {
+                height: 40px;
+                margin-right: 10px;
+                transition: all 0.3s ease;
+            }
+            
+            .logo-text h1 {
+                font-size: 18px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            
+            .logo-text p {
+                display: none;
+            }
+            
+            /* 3. 汉堡菜单样式 */
+            .menu-toggle {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                width: 30px;
+                height: 20px;
+                cursor: pointer;
+                margin-left: 15px;
+            }
+            
+            .menu-toggle span {
+                display: block;
+                height: 3px;
+                width: 100%;
+                background: var(--primary);
+                transition: all 0.3s ease;
+            }
+            
+            /* 4. 导航菜单 */
+            nav ul {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: rgba(255,255,255,0.98);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                margin: 0;
+                padding: 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            }
+            
+            nav ul.show {
+                max-height: 100vh;
+            }
+            
+            nav ul li {
+                margin: 0;
+                padding: 0;
+                border-bottom: 1px solid rgba(0,0,0,0.05);
+            }
+            
+            nav ul li a {
+                display: block;
+                padding: 15px 20px;
+                color: #333 !important;
+                font-size: 15px;
+            }
+            
+            .btn-nav {
+                margin: 15px 20px !important;
+                width: calc(100% - 40px);
+            }
+            
+            /* 5. 滚动效果 */
+            header.scrolled {
+                height: 50px;
+            }
+            
+            header.scrolled .logo img {
+                height: 30px;
+            }
+            
+            /* 6. 内容区域调整 */
+            .hero {
+                padding-top: 20px !important;
+                min-height: calc(100vh - 70px);
+            }
+            
+            /* 7. 保持其他原有样式 */
+            .card {
+                width: 100%;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
     .btn-outline {
         margin-left: 0;
         margin-top: 10px;
@@ -575,29 +630,33 @@ header.scrolled nav ul li a {
 <body>
     <div class="blur-bg"></div>
     
-    <header>
+<header>
         <div class="container">
             <div class="header-content">
                 <div class="logo">
-                    <img src="https://github.com/WONGIII/picx-images-hosting/raw/master/1000021584.9o00zinrlw.png" alt="Project WXI Logo">
+                    <img src="https://github.com/WONGIII/picx-images-hosting/raw/master/1000021583.5q7ni8klm5.png" alt="Logo">
                     <div class="logo-text">
                         <h1>XiXi & WANG 联合服务器</h1>
-                        <p>创造无限可能的游戏世界</p>
+                        <p>创造无限可能</p>
                     </div>
                 </div>
                 <nav>
+                    <div class="menu-toggle">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
                     <ul>
                         <li><a href="#home">首页</a></li>
                         <li><a href="#projects">项目计划</a></li>
                         <li><a href="#battlefield">战地V</a></li>
                         <li><a href="#minecraft">Minecraft</a></li>
                         <li><a href="wiki/join-guide.html" class="btn-nav">加入指南</a></li>
-                        <li><a href="#contact">联系我们</a></li>
                     </ul>
                 </nav>
             </div>
         </div>
-    </header>
+</header>
 
     <section class="hero" id="home">
         <div class="container">
@@ -789,5 +848,26 @@ window.addEventListener('scroll', function() {
     }
 });
 </script>
+        <script>
+        // 汉堡菜单功能
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            this.classList.toggle('active');
+            document.querySelector('nav ul').classList.toggle('show');
+        });
+
+        // 滚动监听
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            header.classList.toggle('scrolled', window.scrollY > 20);
+        });
+
+        // 点击菜单项后自动关闭菜单
+        document.querySelectorAll('nav ul li a').forEach(item => {
+            item.addEventListener('click', () => {
+                document.querySelector('.menu-toggle').classList.remove('active');
+                document.querySelector('nav ul').classList.remove('show');
+            });
+        });
+        </script>
 </body>
 </html>
