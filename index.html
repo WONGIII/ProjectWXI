@@ -436,20 +436,34 @@
         }
 
         
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                text-align: center;
-            }
+        /* 修改现有的移动端媒体查询部分 */
+@media (max-width: 768px) {
+    /* 修复导航栏布局 */
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+        padding: 15px 0;
+    }
+    
+    nav ul {
+        margin-top: 15px;
+        flex-wrap: wrap; /* 允许导航项换行 */
+        justify-content: center;
+        gap: 10px; /* 添加间距 */
+    }
+    
+    nav ul li {
+        margin: 0;
+        padding: 5px 10px;
+    }
+    
+    /* 导航按钮样式调整 */
+    .btn-nav {
+        margin: 10px 5px 0 5px;
+        display: inline-block;
+    }
+}
             
-            nav ul {
-                margin-top: 20px;
-                justify-content: center;
-            }
-            
-            nav ul li {
-                margin: 0 10px;
-            }
             
             .hero h2 {
                 font-size: 2rem;
@@ -545,7 +559,6 @@
 <div class="btn-group">
     <a href="#projects" class="btn">探索项目</a>
     <a href="http://111.229.250.218:40020/" class="btn btn-outline" target="_blank">进入论坛</a>
-    <a href="wiki/join-guide.html" class="btn btn-wiki">服务器加入指南</a>
 </div>
             </div>
         </div>
