@@ -437,13 +437,23 @@
 
         
 @media (max-width: 768px) {
-    /* 导航栏修复 */
+    /* ========== 导航栏修复 ========== */
+    /* 固定导航栏时给hero留出空间 */
+    .hero {
+        padding-top: 80px !important;  /* 根据导航栏高度调整 */
+        margin-top: 0;
+        transition: padding-top 0.3s ease; /* 平滑过渡 */
+    }
+
+    /* 导航栏容器 */
     .header-content {
         flex-direction: column;
         text-align: center;
         padding: 15px 0;
+        transition: all 0.3s ease;
     }
     
+    /* 导航菜单 */
     nav ul {
         margin-top: 15px;
         justify-content: center;
@@ -452,12 +462,13 @@
         padding: 0 15px;
     }
     
+    /* 导航项 */
     nav ul li {
         margin: 0;
         padding: 5px 0;
     }
     
-    /* 导航按钮样式调整 */
+    /* 导航按钮 */
     .btn-nav {
         padding: 8px 20px;
         background: var(--gradient);
@@ -474,9 +485,13 @@
         box-shadow: 0 5px 15px rgba(106, 139, 173, 0.4);
     }
 
-    /* 滚动时的移动端样式 */
+    /* ========== 滚动时样式 ========== */
     header.scrolled {
         padding: 3px 0 !important;
+    }
+    
+    header.scrolled + .hero {
+        padding-top: 60px !important; /* 滚动后减少留白 */
     }
     
     header.scrolled .logo img {
@@ -487,7 +502,7 @@
         margin-top: 5px !important;
     }
 
-    /* 保持原有其他样式不变 */
+    /* ========== 其他原有样式 ========== */
     .hero h2 {
         font-size: 2rem;
     }
