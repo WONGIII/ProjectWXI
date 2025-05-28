@@ -436,138 +436,138 @@
         }
 
         
-        @media (max-width: 768px) {
-            /* 1. 全局布局修复 */
-            body {
-                padding-top: 70px; /* 为固定导航栏预留空间 */
-            }
-            
-            /* 2. 导航栏改造 */
-            header {
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                height: 70px;
-                background: rgba(255,255,255,0.98);
-                backdrop-filter: blur(10px);
-                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-                transition: all 0.3s ease;
-                z-index: 1000;
-            }
-            
-            .header-content {
-                display: flex;
-                align-items: center;
-                height: 100%;
-                padding: 0 15px;
-            }
-            
-            .logo {
-                flex: 1;
-                display: flex;
-                align-items: center;
-                min-width: 0;
-            }
-            
-            .logo img {
-                height: 40px;
-                margin-right: 10px;
-                transition: all 0.3s ease;
-            }
-            
-            .logo-text h1 {
-                font-size: 18px;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
-            
-            .logo-text p {
-                display: none;
-            }
-            
-            /* 3. 汉堡菜单样式 */
-            .menu-toggle {
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                width: 30px;
-                height: 20px;
-                cursor: pointer;
-                margin-left: 15px;
-            }
-            
-            .menu-toggle span {
-                display: block;
-                height: 3px;
-                width: 100%;
-                background: var(--primary);
-                transition: all 0.3s ease;
-            }
-            
-            /* 4. 导航菜单 */
-            nav ul {
-                position: fixed;
-                top: 70px;
-                left: 0;
-                right: 0;
-                background: rgba(255,255,255,0.98);
-                backdrop-filter: blur(10px);
-                flex-direction: column;
-                margin: 0;
-                padding: 0;
-                max-height: 0;
-                overflow: hidden;
-                transition: max-height 0.3s ease;
-                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-            }
-            
-            nav ul.show {
-                max-height: 100vh;
-            }
-            
-            nav ul li {
-                margin: 0;
-                padding: 0;
-                border-bottom: 1px solid rgba(0,0,0,0.05);
-            }
-            
-            nav ul li a {
-                display: block;
-                padding: 15px 20px;
-                color: #333 !important;
-                font-size: 15px;
-            }
-            
-            .btn-nav {
-                margin: 15px 20px !important;
-                width: calc(100% - 40px);
-            }
-            
-            /* 5. 滚动效果 */
-            header.scrolled {
-                height: 50px;
-            }
-            
-            header.scrolled .logo img {
-                height: 30px;
-            }
-            
-            /* 6. 内容区域调整 */
-            .hero {
-                padding-top: 20px !important;
-                min-height: calc(100vh - 70px);
-            }
-            
-            /* 7. 保持其他原有样式 */
-            .card {
-                width: 100%;
-            }
-            
-            .btn-group {
-                flex-direction: column;
-            }
+@media (max-width: 768px) {
+    /* 1. 删除 body 的 padding-top */
+    /* 原代码：body { padding-top: 70px; } 已删除 */
+    
+    /* 2. 导航栏保持完全不变 */
+    header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 70px;
+        background: rgba(255,255,255,0.98);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+        z-index: 1000;
+    }
+    
+    .header-content {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        padding: 0 15px;
+    }
+    
+    .logo {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        min-width: 0;
+    }
+    
+    .logo img {
+        height: 40px;
+        margin-right: 10px;
+        transition: all 0.3s ease;
+    }
+    
+    .logo-text h1 {
+        font-size: 18px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    .logo-text p {
+        display: none;
+    }
+    
+    /* 3. 汉堡菜单保持完全不变 */
+    .menu-toggle {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 30px;
+        height: 20px;
+        cursor: pointer;
+        margin-left: 15px;
+    }
+    
+    .menu-toggle span {
+        display: block;
+        height: 3px;
+        width: 100%;
+        background: var(--primary);
+        transition: all 0.3s ease;
+    }
+    
+    /* 4. 导航菜单保持完全不变 */
+    nav ul {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background: rgba(255,255,255,0.98);
+        backdrop-filter: blur(10px);
+        flex-direction: column;
+        margin: 0;
+        padding: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    }
+    
+    nav ul.show {
+        max-height: 100vh;
+    }
+    
+    nav ul li {
+        margin: 0;
+        padding: 0;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    nav ul li a {
+        display: block;
+        padding: 15px 20px;
+        color: #333 !important;
+        font-size: 15px;
+    }
+    
+    .btn-nav {
+        margin: 15px 20px !important;
+        width: calc(100% - 40px);
+    }
+    
+    /* 5. 滚动效果保持完全不变 */
+    header.scrolled {
+        height: 50px;
+    }
+    
+    header.scrolled .logo img {
+        height: 30px;
+    }
+    
+    /* 6. 删除 hero 的额外留空 */
+    /* 原代码：
+    .hero {
+        padding-top: 20px !important;
+        min-height: calc(100vh - 70px);
+    } 
+    已删除 */
+    
+    /* 7. 其他样式保持完全不变 */
+    .card {
+        width: 100%;
+    }
+    
+    .btn-group {
+        flex-direction: column;
+    }
     .btn-outline {
         margin-left: 0;
         margin-top: 10px;
@@ -634,7 +634,7 @@ header.scrolled nav ul li a {
         <div class="container">
             <div class="header-content">
                 <div class="logo">
-                    <img src="https://github.com/WONGIII/picx-images-hosting/raw/master/1000021583.5q7ni8klm5.png" alt="Logo">
+                    <img src="https://github.com/WONGIII/picx-images-hosting/raw/master/1000021584.9o00zinrlw.png" alt="Logo">
                     <div class="logo-text">
                         <h1>XiXi & WANG 联合服务器</h1>
                         <p>创造无限可能</p>
