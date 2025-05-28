@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XiXi & WANG 联合服务器</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6a8bad;
+            --secondary: #a8c3bc;
+            --accent: #e8b4b8;
+            --text: #4a4a4a;
+            --light: #f8f9fa;
+            --gradient: linear-gradient(135deg, #6a8bad 0%, #a8c3bc 100%);
+            --card-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            color: var(--text);
+            background-color: var(--light);
+            margin: 0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .blur-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient);
+            z-index: -2;
+            opacity: 0.1;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+        }
+        
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 50px;
+            margin-right: 15px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+        
+        .logo-text h1 {
+            margin: 0;
+            font-weight: 500;
+            color: var(--primary);
+            font-size: 24px;
+            letter-spacing: 1px;
+        }
+        
+        .logo-text p {
+            margin: 0;
+            font-weight: 300;
+            color: var(--text);
+            font-size: 13px;
+            opacity: 0.8;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+            font-size: 15px;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+        
+        nav ul li a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s;
+        }
+        
+        nav ul li a:hover:after {
+            width: 100%;
+        }
+        
+        .hero {
+            padding: 100px 0 80px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h2 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            font-weight: 300;
+            color: var(--primary);
+            letter-spacing: 1px;
+        }
+        
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--gradient);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            transition: all 0.3s;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(106, 139, 173, 0.3);
+            border: none;
+            cursor: pointer;
+            font-size: 15px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(106, 139, 173, 0.4);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            margin-left: 15px;
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-weight: 400;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background: var(--accent);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-title p {
+            color: var(--text);
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.8;
+        }
+        
+        .cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s;
+            width: 350px;
+            position: relative;
+        }
+        
+        .card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient);
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+        }
+        
+        .card-content {
+            padding: 25px;
+        }
+        
+        .card-content h3 {
+            margin-top: 0;
+            color: var(--primary);
+            font-size: 1.3rem;
+        }
+        
+        .card-content p {
+            margin-bottom: 15px;
+        }
+        
+        .card-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+        
+        .server-widget {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: var(--card-shadow);
+            margin: 0 auto;
+            max-width: 700px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .server-widget:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+        }
+        
+        .server-widget h3 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+        
+        .project-img {
+            width: 100%;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        footer {
+            background: var(--gradient);
+            color: white;
+            padding: 60px 0 30px;
+            position: relative;
+        }
+        
+        footer:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(90deg, var(--accent) 0%, var(--primary) 100%);
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 30px;
+            padding: 0 20px;
+        }
+        
+        .footer-section h3 {
+            font-weight: 500;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-section h3:after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 2px;
+            background: white;
+            bottom: -8px;
+            left: 0;
+            opacity: 0.5;
+        }
+        
+        .footer-section p {
+            opacity: 0.8;
+            font-size: 0.95rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+            font-size: 0.95rem;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            font-size: 0.9rem;
+            opacity: 0.7;
+            text-align: center;
+        }
+        
+        .qq-group {
+            background: rgba(255,255,255,0.1);
+            padding: 10px 15px;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 10px;
+            font-family: monospace;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0 10px;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .btn-group {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .btn-outline {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+            
+            .card {
+                width: 100%;
+            }
+            
+            .footer-section {
+                text-align: center;
+            }
+            
+            .footer-section h3:after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .social-links {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="blur-bg"></div>
+    
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="https://github.com/WONGIII/picx-images-hosting/raw/master/1000021583.5q7ni8klm5.png" alt="Project WXI Logo">
+                    <div class="logo-text">
+                        <h1>XiXi & WANG 联合服务器</h1>
+                        <p>创造无限可能的游戏世界</p>
+                    </div>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#home">首页</a></li>
+                        <li><a href="#projects">项目计划</a></li>
+                        <li><a href="#battlefield">战地V</a></li>
+                        <li><a href="#minecraft">Minecraft</a></li>
+                        <li><a href="#contact">联系我们</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h2>欢迎来到我们的游戏世界</h2>
+                <p>由XiXi联合WANG服务器打造的高品质游戏体验，从战地V到Minecraft，为您提供独特的游戏社区</p>
+                <div class="btn-group">
+                    <a href="#projects" class="btn">探索项目</a>
+                    <a href="http://111.229.250.218:40020/" class="btn btn-outline" target="_blank">进入论坛</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="projects">
+        <div class="container">
+            <div class="section-title">
+                <h2>Project WXI</h2>
+                <p>我们的跨游戏服务器计划，整合优质资源，打造无缝游戏体验</p>
+            </div>
+            <div class="cards">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="card-icon">🏰</div>
+                        <h3>Minecraft 主城计划</h3>
+                        <p>打造史诗级的主城建筑群，融合现代与奇幻元素，为玩家提供震撼的初始体验。</p>
+                        <p>计划包括：中央广场、商业区、任务大厅和传送枢纽。</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="card-icon">🛠️</div>
+                        <h3>服务器维护总部</h3>
+                        <p>专业的技术团队24/7维护服务器稳定运行，确保玩家获得最佳游戏体验。</p>
+                        <p>包括：自动备份系统、实时监控和快速响应机制。</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="card-icon">🛡️</div>
+                        <h3>服务器防卫军事力量</h3>
+                        <p>建立专业的游戏内防卫团队，维护服务器秩序，打击作弊行为。</p>
+                        <p>包括：反作弊系统、玩家行为监控和公平竞技环境维护。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="battlefield" style="background-color: rgba(248,249,250,0.7); backdrop-filter: blur(5px);">
+        <div class="container">
+            <div class="section-title">
+                <h2>战地V 服务器</h2>
+                <p>XiXi 战地V 地铁征服循环服务器 - 24小时不间断战斗体验</p>
+            </div>
+            <div class="server-widget">
+                <h3>[song][6]xixi#2 地铁征服循环24小时</h3>
+                <iframe title="Server playercount" src="https://widgets.gametools.network/servers/detailed/bfv/name/%5Bsong%5D%5B6%5Dxixi%232%20%E5%9C%B0%E9%93%81%E5%BE%81%E6%9C%8D%E5%BE%AA%E7%8E%AF24%E5%B0%8F%E6%97%B6%2F%E5%8A%A0%E7%BE%A4%E7%AE%A1%E7%90%86/pc?lng=zh-CN" height="90px" width="100%" frameborder="0" allowtransparency="true"></iframe>
+                <p>QQ群: <span class="qq-group">275502309</span></p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="minecraft">
+        <div class="container">
+            <div class="section-title">
+                <h2>Minecraft 服务器</h2>
+                <p>由 XiXi 联合 WANG 服务器打造的独特 Minecraft 体验</p>
+            </div>
+            <img src="https://github.com/WONGIII/picx-images-hosting/raw/master/1000021583.5q7ni8klm5.png" alt="Project WXI" class="project-img">
+            <div class="cards">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="card-icon">✨</div>
+                        <h3>Project WXI</h3>
+                        <p>我们的旗舰Minecraft项目，融合建筑艺术与游戏玩法创新。</p>
+<p>特色包括：定制RPG元素、独特经济系统和社区建设活动。</p>
+</div>
+</div>
+<div class="card">
+<div class="card-content">
+<div class="card-icon">👥</div>
+<h3>玩家社区</h3>
+<p>活跃友好的玩家社区，定期举办建筑比赛和游戏内活动。</p>
+<p><a href="http://111.229.250.218:40020/" target="_blank" style="color: var(--primary); text-decoration: none;">→ 访问我们的论坛 ←</a></p>
+</div>
+</div>
+<div class="card">
+<div class="card-content">
+<div class="card-icon">🎉</div>
+<h3>服务器活动</h3>
+<p>丰富多彩的定期活动：建筑大赛、PVP锦标赛、寻宝活动等。</p>
+<p>赢取独特奖励和游戏内荣誉！</p>
+</div>
+</div>
+</div>
+</div>
+    </section>
+<footer id="contact">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>关于我们</h3>
+                <p>XiXi & WANG 联合服务器是由热爱游戏的团队创建，致力于提供高质量的多游戏服务器体验。</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-qq"></i></a>
+                    <a href="#"><i class="fab fa-weixin"></i></a>
+                    <a href="#"><i class="fab fa-discord"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>快速链接</h3>
+                <ul class="footer-links">
+                    <li><a href="#home">首页</a></li>
+                    <li><a href="#projects">项目计划</a></li>
+                    <li><a href="#battlefield">战地V服务器</a></li>
+                    <li><a href="#minecraft">Minecraft服务器</a></li>
+                    <li><a href="http://111.229.250.218:40020/" target="_blank">玩家论坛</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>联系方式</h3>
+                <p>QQ群: <span class="qq-group">275502309</span></p>
+                <p>Email: contact@xixi-wang.com</p>
+                <p>论坛: <a href="http://111.229.250.218:40020/" target="_blank" style="color: white;">111.229.250.218:40020</a></p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>© 2023 XiXi & WANG 联合服务器. 保留所有权利.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Font Awesome for icons -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+<!-- 平滑滚动效果 -->
+<script>
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+        });
+    });
+});
+</script>
+</body>
+</html>
