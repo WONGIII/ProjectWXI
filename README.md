@@ -27,9 +27,13 @@
 - Google Fonts 字体
 
 ## 📂 项目结构
-ProjectWXI/
-├── index.html  # 单文件承载所有内容
-└── README.md   # 项目说明
+
+`ProjectWXI/`  
+├── [`index.html`](./index.html) ← 主页面（内联所有资源）  
+
+└── [`README.md`](./README.md) ← 当前文档  
+
+> 💡 所有资源（CSS/JS/图片）均通过CDN引用，无本地依赖
 
 ## 🚀 部署说明
 
