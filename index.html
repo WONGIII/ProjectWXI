@@ -436,69 +436,77 @@
         }
 
         
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            nav ul {
-                margin-top: 20px;
-                justify-content: center;
-            }
-            
-            nav ul li {
-                margin: 0 10px;
-            }
-            
-            .hero h2 {
-                font-size: 2rem;
-            }
-            
-            .btn-group {
-                display: flex;
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .btn-outline {
-                margin-left: 0;
-                margin-top: 10px;
-            }
-            
-            .card {
-                width: 100%;
-            }
-            
-            .footer-section {
-                text-align: center;
-            }
-            
-            .footer-section h3:after {
-                left: 50%;
-                transform: translateX(-50%);
-            }
-            
-            .social-links {
-                justify-content: center;
-            }
-            /* 导航按钮样式 */
-.btn-nav {
-    padding: 8px 20px;
-    background: var(--gradient);
-    color: white !important;
-    border-radius: 20px;
-    margin-left: 15px;
-    transition: all 0.3s;
+@media (max-width: 768px) {
+    /* 导航栏修复 */
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+        padding: 15px 0; /* 新增 */
+    }
+    
+    nav ul {
+        margin-top: 15px; /* 从20px调整为15px */
+        justify-content: center;
+        flex-wrap: wrap; /* 新增 */
+        gap: 10px; /* 新增 */
+        padding: 0 15px; /* 新增 */
+    }
+    
+    nav ul li {
+        margin: 0; /* 从0 10px改为0 */
+        padding: 5px 0; /* 新增 */
+    }
+    
+    /* 导航按钮样式调整 */
+    .btn-nav {
+        padding: 8px 20px;
+        background: var(--gradient);
+        color: white !important;
+        border-radius: 20px;
+        margin: 10px auto 0; /* 修改margin */
+        display: block; /* 新增 */
+        width: max-content; /* 新增 */
+        transition: all 0.3s;
+    }
+    
+    .btn-nav:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(106, 139, 173, 0.4);
+    }
+
+    /* 保持原有其他样式不变 */
+    .hero h2 {
+        font-size: 2rem;
+    }
+    
+    .btn-group {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .btn-outline {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+    
+    .card {
+        width: 100%;
+    }
+    
+    .footer-section {
+        text-align: center;
+    }
+    
+    .footer-section h3:after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    .social-links {
+        justify-content: center;
+    }
 }
-
-.btn-nav:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(106, 139, 173, 0.4);
-}
-
-
-        }
     </style>
 </head>
 <body>
