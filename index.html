@@ -441,20 +441,20 @@
     .header-content {
         flex-direction: column;
         text-align: center;
-        padding: 15px 0; /* 新增 */
+        padding: 15px 0;
     }
     
     nav ul {
-        margin-top: 15px; /* 从20px调整为15px */
+        margin-top: 15px;
         justify-content: center;
-        flex-wrap: wrap; /* 新增 */
-        gap: 10px; /* 新增 */
-        padding: 0 15px; /* 新增 */
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 0 15px;
     }
     
     nav ul li {
-        margin: 0; /* 从0 10px改为0 */
-        padding: 5px 0; /* 新增 */
+        margin: 0;
+        padding: 5px 0;
     }
     
     /* 导航按钮样式调整 */
@@ -463,15 +463,28 @@
         background: var(--gradient);
         color: white !important;
         border-radius: 20px;
-        margin: 10px auto 0; /* 修改margin */
-        display: block; /* 新增 */
-        width: max-content; /* 新增 */
+        margin: 10px auto 0;
+        display: block;
+        width: max-content;
         transition: all 0.3s;
     }
     
     .btn-nav:hover {
         transform: translateY(-2px);
         box-shadow: 0 5px 15px rgba(106, 139, 173, 0.4);
+    }
+
+    /* 滚动时的移动端样式 */
+    header.scrolled {
+        padding: 3px 0 !important;
+    }
+    
+    header.scrolled .logo img {
+        height: 30px !important;
+    }
+    
+    header.scrolled nav ul {
+        margin-top: 5px !important;
     }
 
     /* 保持原有其他样式不变 */
@@ -506,6 +519,41 @@
     .social-links {
         justify-content: center;
     }
+}
+    /* 导航栏滚动效果 */
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 滚动时的紧凑样式 */
+header.scrolled {
+    padding: 5px 0 !important;
+}
+
+header.scrolled .logo img {
+    height: 40px !important;
+}
+
+header.scrolled .logo-text h1 {
+    font-size: 20px !important;
+}
+
+header.scrolled .logo-text p {
+    display: none;
+}
+
+header.scrolled nav ul li a {
+    padding: 6px 12px !important;
+    font-size: 14px !important;
+}
+
 }
     </style>
 </head>
@@ -713,6 +761,17 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             behavior: 'smooth'
         });
     });
+});
+</script>
+    <script>
+// 导航栏滚动效果
+window.addEventListener('scroll', function() {
+    const header = document.querySelector('header');
+    if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+    } else {
+        header.classList.remove('scrolled');
+    }
 });
 </script>
 </body>
