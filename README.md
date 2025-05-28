@@ -28,8 +28,8 @@
 
 ## 📂 项目结构
 ProjectWXI/
-├── index.html # 唯一页面文件（包含所有CSS/JS）
-└── README.md # 项目说明文档
+├── index.html  # 单文件承载所有内容
+└── README.md   # 项目说明
 
 ## 🚀 部署说明
 
