@@ -482,6 +482,30 @@
             .social-links {
                 justify-content: center;
             }
+            /* 导航按钮样式 */
+.btn-nav {
+    padding: 8px 20px;
+    background: var(--gradient);
+    color: white !important;
+    border-radius: 20px;
+    margin-left: 15px;
+    transition: all 0.3s;
+}
+
+.btn-nav:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(106, 139, 173, 0.4);
+}
+
+/* 或英雄区域wiki按钮样式 */
+.btn-wiki {
+    background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+    margin-left: 15px;
+}
+
+.btn-wiki:hover {
+    background: linear-gradient(135deg, #feca57 0%, #ff6b6b 100%);
+}
         }
     </style>
 </head>
@@ -504,6 +528,7 @@
                         <li><a href="#projects">项目计划</a></li>
                         <li><a href="#battlefield">战地V</a></li>
                         <li><a href="#minecraft">Minecraft</a></li>
+                        <li><a href="wiki/join-guide.html" class="btn-nav">加入指南</a></li>
                         <li><a href="#contact">联系我们</a></li>
                     </ul>
                 </nav>
@@ -516,10 +541,12 @@
             <div class="hero-content">
                 <h2>欢迎来到我们的游戏世界</h2>
                 <p>由XiXi联合WANG服务器打造的高品质游戏体验，从战地V到Minecraft，为您提供独特的游戏社区</p>
-                <div class="btn-group">
-                    <a href="#projects" class="btn">探索项目</a>
-                    <a href="http://111.229.250.218:40020/" class="btn btn-outline" target="_blank">进入论坛</a>
-                </div>
+                <!-- 在hero区域的按钮组中添加 -->
+<div class="btn-group">
+    <a href="#projects" class="btn">探索项目</a>
+    <a href="http://111.229.250.218:40020/" class="btn btn-outline" target="_blank">进入论坛</a>
+    <a href="wiki/join-guide.html" class="btn btn-wiki">服务器加入指南</a>
+</div>
             </div>
         </div>
     </section>
