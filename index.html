@@ -511,15 +511,55 @@
     box-shadow: 0 5px 15px rgba(106, 139, 173, 0.4);
 }
 
-/* 或英雄区域wiki按钮样式 */
-.btn-wiki {
-    background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
-    margin-left: 15px;
-}
 
 .btn-wiki:hover {
     background: linear-gradient(135deg, #feca57 0%, #ff6b6b 100%);
 }
+        /* 正三角布局（1上2下） */
+.triangle-up-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.triangle-up-layout > .card {
+    margin-bottom: 30px;
+}
+
+.triangle-up-layout .row-two {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    width: 100%;
+}
+
+/* 倒三角布局（2上1下） */ 
+.triangle-down-layout {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+}
+
+.triangle-down-layout > .card {
+    margin-top: 30px;
+}
+
+.triangle-down-layout .row-one {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    width: 100%;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .triangle-up-layout .row-two,
+    .triangle-down-layout .row-one {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
         }
     </style>
 </head>
