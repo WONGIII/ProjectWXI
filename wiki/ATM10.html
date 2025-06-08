@@ -97,6 +97,19 @@
             font-weight: bold;
             margin: 15px 0;
         }
+        .download-btn {
+            display: inline-block;
+            background: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin: 10px 5px;
+            font-weight: bold;
+        }
+        .download-btn:hover {
+            background: #45a049;
+        }
     </style>
 </head>
 <body>
@@ -141,6 +154,42 @@
             <p class="note">注意：下载可能需要较长时间，请耐心等待</p>
         </div>
 
+        <h2>🀄 汉化教程</h2>
+        
+        <div class="step">
+            <span class="step-number">4</span>
+            <strong>下载汉化补丁</strong>
+            <p>选择以下任一方式下载汉化补丁：</p>
+            <div style="text-align: center;">
+                <a href="https://pan.quark.cn/s/3d1c381aa649" class="download-btn" target="_blank">夸克网盘下载</a>
+                <a href="https://www.bilibili.com/read/cv32911284/" class="download-btn" target="_blank">备用下载地址</a>
+            </div>
+            <p class="note">汉化补丁由柠娜制作，使用CHATGPT根据27W术语库进行翻译</p>
+        </div>
+        
+        <div class="step">
+            <span class="step-number">5</span>
+            <strong>安装汉化补丁</strong>
+            <p>按照以下步骤操作：</p>
+            <ol>
+                <li>将下载的汉化补丁解压缩</li>
+                <li>将汉化补丁内的所有文件夹拖入游戏的版本文件夹(通常位于<code>.minecraft/versions/ATM10</code>)，覆盖原有文件</li>
+                <li>下载并安装<a href="https://www.curseforge.com/minecraft/mc-mods/i18nupdatemod" target="_blank">I18n自动汉化模组</a> (注意选择NeoForge版本)</li>
+                <li>启动游戏，在"选项"→"资源包"中加载汉化材质包</li>
+            </ol>
+        </div>
+        
+        <div class="important">
+            <h3>⚠️ 汉化注意事项</h3>
+            <ul>
+                <li>确保使用NeoForge版本的I18n模组，Fabric版本会导致崩溃</li>
+                <li>如果任务书汉化不显示，尝试重新加载资源包</li>
+                <li>部分硬编码文本可能无法汉化，属于正常现象</li>
+                <li>遇到崩溃问题，请检查模组版本是否匹配</li>
+            </ul>
+            <p>更多汉化资源请访问：<a href="https://docs.qq.com/sheet/DWlJLZ2dPdFR3aldS" target="_blank">汉化补丁大集合表格</a></p>
+        </div>
+
         <div class="important">
             <h3>⚠️ 重要提示</h3>
             <p>在继续之前，请确保您已经成功安装All the Mods 10整合包并能正常启动游戏！</p>
@@ -155,7 +204,7 @@
         <h2>🎮 连接服务器</h2>
         
         <div class="step">
-            <span class="step-number">7</span>
+            <span class="step-number">6</span>
             <strong>启动游戏并加入服务器</strong>
             <p>按照以下步骤连接：</p>
             <ol>
@@ -173,6 +222,7 @@
                 <li><strong>无法连接：</strong> 检查是否安装了所有必要模组和补丁</li>
                 <li><strong>版本不匹配：</strong> 确保使用的是All the Mods 10-3.2版本</li>
                 <li><strong>游戏崩溃：</strong> 尝试分配更多内存（建议4GB以上）</li>
+                <li><strong>汉化问题：</strong> 确保使用正确的I18n模组版本</li>
                 <li><strong>其他问题：</strong> 请在QQ群中咨询管理员</li>
             </ul>
         </div>
