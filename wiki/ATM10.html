@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All the Mods 10服务器加入指南 | XiXi & WANG 联合服务器</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Quicksand:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #3498db;
@@ -103,6 +103,8 @@
             min-width: 250px;
             text-align: center;
             transition: var(--transition);
+            flex: 1;
+            max-width: 300px;
         }
         
         .info-card:hover {
@@ -126,6 +128,7 @@
             font-size: 1.3rem;
             font-weight: 700;
             color: var(--primary);
+            word-break: break-all;
         }
         
         .wiki-section {
@@ -177,6 +180,8 @@
             position: relative;
             transition: var(--transition);
             border-left: 4px solid var(--primary);
+            display: flex;
+            flex-direction: column;
         }
         
         .step-card:hover {
@@ -217,6 +222,7 @@
         .step-card ul, .step-card ol {
             padding-left: 20px;
             margin: 15px 0;
+            flex: 1;
         }
         
         .step-card li {
@@ -246,6 +252,7 @@
             gap: 15px;
             flex-wrap: wrap;
             margin: 20px 0;
+            justify-content: center;
         }
         
         .download-btn {
@@ -259,6 +266,8 @@
             text-decoration: none;
             font-weight: 600;
             transition: var(--transition);
+            text-align: center;
+            justify-content: center;
         }
         
         .download-btn:hover {
@@ -343,6 +352,11 @@
             margin-bottom: 30px;
         }
         
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+        }
+        
         .footer-section h3 {
             margin-bottom: 15px;
             font-size: 1.3rem;
@@ -372,6 +386,28 @@
             font-size: 0.9rem;
         }
         
+        .content-center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .note {
+            color: #666;
+            font-size: 0.9em;
+            font-style: italic;
+            margin-top: 10px;
+        }
+        
+        code {
+            background: #f0f0f0;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: Consolas, monospace;
+            word-break: break-word;
+        }
+        
         @media (max-width: 768px) {
             .server-title {
                 font-size: 2.2rem;
@@ -382,12 +418,27 @@
                 align-items: center;
             }
             
+            .info-card {
+                max-width: 100%;
+                width: 100%;
+            }
+            
             .steps-grid {
                 grid-template-columns: 1fr;
             }
             
             .section-header h2 {
                 font-size: 1.5rem;
+            }
+            
+            .download-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .download-btn {
+                width: 100%;
+                max-width: 300px;
             }
         }
     </style>
@@ -445,10 +496,10 @@
                     <h3><i class="fas fa-download"></i> 下载游戏启动器</h3>
                     <p>选择以下任一启动器：</p>
                     <div class="download-buttons">
-                        <a href="#" class="download-btn">
+                        <a href="https://afdian.com/p/0164034c016c11ebafcb52540025c377" class="download-btn" target="_blank">
                             <i class="fas fa-rocket"></i> PCL2启动器
                         </a>
-                        <a href="#" class="download-btn">
+                        <a href="https://hmcl.huangyuhui.net/" class="download-btn" target="_blank">
                             <i class="fas fa-cube"></i> HMCL启动器
                         </a>
                     </div>
@@ -493,14 +544,14 @@
                     <h3><i class="fas fa-file-download"></i> 下载汉化补丁</h3>
                     <p>选择以下任一方式下载汉化补丁：</p>
                     <div class="download-buttons">
-                        <a href="#" class="download-btn">
+                        <a href="https://pan.quark.cn/s/3d1c381aa649" class="download-btn" target="_blank">
                             <i class="fas fa-download"></i> 夸克网盘下载
                         </a>
-                        <a href="#" class="download-btn">
+                        <a href="https://www.bilibili.com/read/cv32911284/" class="download-btn" target="_blank">
                             <i class="fas fa-link"></i> 备用下载地址
                         </a>
                     </div>
-                    <p>汉化补丁由柠娜制作，使用CHATGPT根据27W术语库进行翻译</p>
+                    <p class="note">汉化补丁由柠娜制作，使用CHATGPT根据27W术语库进行翻译</p>
                 </div>
                 
                 <div class="step-card">
@@ -509,7 +560,7 @@
                     <ol>
                         <li>将下载的汉化补丁解压缩</li>
                         <li>将文件覆盖到游戏目录: <code>.minecraft/versions/ATM10</code></li>
-                        <li>下载并安装<a href="#" class="download-btn" style="padding:5px 10px; margin:5px;">I18n自动汉化模组</a></li>
+                        <li>下载并安装<a href="https://www.curseforge.com/minecraft/mc-mods/i18nupdatemod" class="download-btn" style="padding:5px 10px; margin:5px;" target="_blank">I18n自动汉化模组</a></li>
                         <li>在游戏内加载汉化材质包</li>
                     </ol>
                 </div>
@@ -523,7 +574,7 @@
                     <li>部分硬编码文本可能无法汉化，属于正常现象</li>
                     <li>遇到崩溃问题，请检查模组版本是否匹配</li>
                 </ul>
-                <p>更多汉化资源请访问：<a href="#" style="color: #e67e22; font-weight: 500;">汉化补丁大集合表格</a></p>
+                <p>更多汉化资源请访问：<a href="https://docs.qq.com/sheet/DWlJLZ2dPdFR3aldS" style="color: #e67e22; font-weight: 500;" target="_blank">汉化补丁大集合表格</a></p>
             </div>
         </section>
         
@@ -577,16 +628,16 @@
                 <h2>开始游戏</h2>
             </div>
             
-            <div style="text-align: center; padding: 30px;">
+            <div class="content-center">
                 <h3 style="font-size: 2rem; color: var(--accent); margin-bottom: 20px;">
                     <i class="fas fa-trophy"></i> 欢迎加入我们的世界！
                 </h3>
                 <p style="font-size: 1.2rem; max-width: 600px; margin: 0 auto 30px;">
                     您已成功连接到All the Mods 10服务器，现在可以开始您的模组冒险之旅了！
                 </p>
-                <div class="info-card" style="display: inline-block; margin: 0 auto;">
+                <div class="info-card" style="max-width: 400px;">
                     <h3>服务器IP地址</h3>
-                    <p style="font-size: 1.8rem;">wangiii.top:25577</p>
+                    <p style="font-size: 1.8rem; word-break: break-all;">wangiii.top:25577</p>
                 </div>
             </div>
         </section>
@@ -609,9 +660,9 @@
                 
                 <div class="footer-section">
                     <h3>相关资源</h3>
-                    <p><a href="#" style="color: #ecf0f1;">汉化补丁下载</a></p>
-                    <p><a href="#" style="color: #ecf0f1;">模组列表</a></p>
-                    <p><a href="#" style="color: #ecf0f1;">游戏规则</a></p>
+                    <p><a href="https://pan.quark.cn/s/3d1c381aa649" style="color: #ecf0f1;" target="_blank">汉化补丁下载</a></p>
+                    <p><a href="https://www.curseforge.com/minecraft/mc-mods/i18nupdatemod" style="color: #ecf0f1;" target="_blank">I18n模组</a></p>
+                    <p><a href="https://docs.qq.com/sheet/DWlJLZ2dPdFR3aldS" style="color: #ecf0f1;" target="_blank">汉化补丁大集合</a></p>
                 </div>
             </div>
             
