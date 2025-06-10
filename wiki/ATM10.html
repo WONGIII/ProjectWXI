@@ -4,261 +4,627 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All the Mods 10服务器加入指南 | XiXi & WANG 联合服务器</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #2c3e50;
+            --accent: #2ecc71;
+            --light: #f8f9fa;
+            --light-blue: #e3f2fd;
+            --light-green: #e8f5e9;
+            --light-yellow: #fff8e1;
+            --light-red: #ffe0e0;
+            --text: #333;
+            --border-radius: 12px;
+            --shadow: 0 4px 12px rgba(0,0,0,0.08);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
         body {
-            font-family: 'Microsoft YaHei', sans-serif;
+            font-family: 'Noto Sans SC', sans-serif;
             line-height: 1.6;
-            max-width: 900px;
-            margin: 0 auto;
+            color: var(--text);
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            background-attachment: fixed;
             padding: 20px;
-            color: #333;
-            background-color: #f5f5f5;
+            min-height: 100vh;
         }
+        
         .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        header {
             background: white;
+            border-radius: var(--border-radius);
+            padding: 30px 40px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #3498db, #2ecc71, #e74c3c);
+        }
+        
+        .server-title {
+            color: var(--secondary);
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .server-title i {
+            color: var(--accent);
+            font-size: 2.5rem;
+        }
+        
+        .server-subtitle {
+            color: #7f8c8d;
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+        
+        .server-info-box {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        
+        .info-card {
+            background: var(--light);
+            padding: 18px 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            min-width: 250px;
+            text-align: center;
+            transition: var(--transition);
+        }
+        
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+        }
+        
+        .info-card i {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .info-card h3 {
+            color: var(--secondary);
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .info-card p {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .wiki-section {
+            background: white;
+            border-radius: var(--border-radius);
             padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            position: relative;
         }
-        h1, h2, h3 {
-            color: #2c3e50;
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--light);
         }
-        h1 {
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 10px;
-            text-align: center;
-        }
-        h2 {
-            background: #f8f9fa;
-            padding: 10px;
-            border-left: 4px solid #3498db;
-            margin-top: 30px;
-        }
-        .step {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 5px;
-            margin: 15px 0;
-            border-left: 3px solid #3498db;
-        }
-        .step-number {
-            display: inline-block;
-            background: #3498db;
-            color: white;
-            width: 25px;
-            height: 25px;
-            text-align: center;
+        
+        .section-header i {
+            font-size: 1.8rem;
+            color: var(--primary);
+            background: rgba(52, 152, 219, 0.1);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             border-radius: 50%;
-            margin-right: 10px;
+        }
+        
+        .section-header h2 {
+            color: var(--secondary);
+            font-size: 1.8rem;
+        }
+        
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .step-card {
+            background: var(--light);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            position: relative;
+            transition: var(--transition);
+            border-left: 4px solid var(--primary);
+        }
+        
+        .step-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            background: var(--primary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
         }
-        .important {
-            background: #fff8e1;
-            padding: 15px;
-            border-left: 3px solid #ffc107;
-            margin: 20px 0;
+        
+        .step-card h3 {
+            color: var(--secondary);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-        .server-info {
-            background: #e3f2fd;
-            padding: 15px;
-            border-radius: 5px;
-            text-align: center;
-            margin: 20px 0;
-            font-size: 1.2em;
+        
+        .step-card h3 i {
+            color: var(--accent);
         }
-        .mod-list {
-            background: #e8f5e9;
-            padding: 15px;
-            border-radius: 5px;
-        }
-        code {
-            background: #f0f0f0;
-            padding: 2px 5px;
-            border-radius: 3px;
-            font-family: Consolas, monospace;
-        }
-        .screenshot {
-            max-width: 100%;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            margin: 10px 0;
-            box-shadow: 0 0 5px rgba(0,0,0,0.1);
-        }
-        .note {
-            color: #666;
-            font-size: 0.9em;
-            font-style: italic;
-        }
-        .qq-group {
-            background: #ffe0e0;
-            padding: 10px;
-            border-radius: 5px;
-            text-align: center;
-            font-weight: bold;
+        
+        .step-card ul, .step-card ol {
+            padding-left: 20px;
             margin: 15px 0;
         }
-        .download-btn {
-            display: inline-block;
-            background: #4CAF50;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 5px;
-            text-decoration: none;
-            margin: 10px 5px;
-            font-weight: bold;
+        
+        .step-card li {
+            margin-bottom: 10px;
+            line-height: 1.5;
         }
+        
+        .highlight-box {
+            background: var(--light-yellow);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            border-left: 4px solid #ffc107;
+            margin: 25px 0;
+        }
+        
+        .highlight-box h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #e67e22;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        
+        .download-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--primary);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
         .download-btn:hover {
-            background: #45a049;
+            background: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+        }
+        
+        .download-btn i {
+            font-size: 1.2rem;
+        }
+        
+        .qq-group-box {
+            background: var(--light-red);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            margin: 30px 0;
+            border-left: 4px solid #e74c3c;
+        }
+        
+        .qq-group-box h3 {
+            color: #e74c3c;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        
+        .qq-number {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #e74c3c;
+            letter-spacing: 2px;
+            margin: 10px 0;
+            text-shadow: 0 2px 4px rgba(231, 76, 60, 0.2);
+        }
+        
+        .mod-list {
+            background: var(--light-green);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            margin: 25px 0;
+        }
+        
+        .mod-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .mod-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 500;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            transition: var(--transition);
+        }
+        
+        .mod-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            background: var(--accent);
+            color: white;
+        }
+        
+        footer {
+            background: var(--secondary);
+            color: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            margin-top: 40px;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            color: var(--accent);
+        }
+        
+        .footer-section p {
+            margin: 8px 0;
+            color: #ecf0f1;
+        }
+        
+        .logo-section {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .server-logo {
+            height: 80px;
+            filter: brightness(0) invert(1);
+        }
+        
+        .copyright {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+            color: #bdc3c7;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .server-title {
+                font-size: 2.2rem;
+            }
+            
+            .server-info-box {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-header h2 {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>All the Mods 10整合包服务器加入指南</h1>
-        
-        <div class="server-info">
-            <strong>服务器IP地址：</strong> <code>wangiii.top:25577</code><br>
-            <strong>游戏版本：</strong> 1.21.1 10-3.2 (All the Mods 10整合包)
-        </div>
-
-        <h2>📌 准备工作</h2>
-        
-        <div class="step">
-            <span class="step-number">1</span>
-            <strong>确保已安装Java 21</strong>
-            <p>推荐使用Java 21以获得最佳性能</p>
-        </div>
-        
-        <div class="step">
-            <span class="step-number">2</span>
-            <strong>下载游戏启动器</strong>
-            <p>选择以下任一启动器：</p>
-            <ul>
-                <li><a href="https://afdian.com/p/0164034c016c11ebafcb52540025c377" target="_blank">PCL2启动器</a> (推荐)</li>
-                <li><a href="https://hmcl.huangyuhui.net/" target="_blank">HMCL启动器</a></li>
-            </ul>
-        </div>
-
-        <h2>📥 安装整合包</h2>
-        
-        <div class="step">
-            <span class="step-number">3</span>
-            <strong>在启动器中安装整合包</strong>
-            <p>按照以下步骤操作：</p>
-            <ol>
-                <li>打开启动器，点击"下载"或"游戏列表"</li>
-                <li>搜索"ATM10"</li>
-                <li>选择<strong>1.21.1 All the Mods 10-3.2版本</strong> (重要！必须匹配服务器版本)</li>
-                <li>等待下载和安装完成</li>
-            </ol>
-            <p class="note">注意：下载可能需要较长时间，请耐心等待</p>
-        </div>
-
-        <h2>🀄 汉化教程</h2>
-        
-        <div class="step">
-            <span class="step-number">4</span>
-            <strong>下载汉化补丁</strong>
-            <p>选择以下任一方式下载汉化补丁：</p>
-            <div style="text-align: center;">
-                <a href="https://pan.quark.cn/s/3d1c381aa649" class="download-btn" target="_blank">夸克网盘下载</a>
-                <a href="https://www.bilibili.com/read/cv32911284/" class="download-btn" target="_blank">备用下载地址</a>
+        <header>
+            <h1 class="server-title">
+                <i class="fas fa-server"></i>
+                All the Mods 10 服务器百科指南
+            </h1>
+            <p class="server-subtitle">XiXi & WANG 联合服务器 | ATM10加入教程</p>
+            
+            <div class="server-info-box">
+                <div class="info-card">
+                    <i class="fas fa-globe-americas"></i>
+                    <h3>服务器地址</h3>
+                    <p>wangiii.top:25577</p>
+                </div>
+                
+                <div class="info-card">
+                    <i class="fas fa-code-branch"></i>
+                    <h3>游戏版本</h3>
+                    <p>1.21.1 10-3.2</p>
+                </div>
+                
+                <div class="info-card">
+                    <i class="fas fa-users"></i>
+                    <h3>在线玩家</h3>
+                    <p>24/7 开放</p>
+                </div>
             </div>
-            <p class="note">汉化补丁由柠娜制作，使用CHATGPT根据27W术语库进行翻译</p>
-        </div>
+        </header>
         
-        <div class="step">
-            <span class="step-number">5</span>
-            <strong>安装汉化补丁</strong>
-            <p>按照以下步骤操作：</p>
-            <ol>
-                <li>将下载的汉化补丁解压缩</li>
-                <li>将汉化补丁内的所有文件夹拖入游戏的版本文件夹(通常位于<code>.minecraft/versions/ATM10</code>)，覆盖原有文件</li>
-                <li>下载并安装<a href="https://www.curseforge.com/minecraft/mc-mods/i18nupdatemod" target="_blank">I18n自动汉化模组</a> (注意选择NeoForge版本)</li>
-                <li>启动游戏，在"选项"→"资源包"中加载汉化材质包</li>
-            </ol>
-        </div>
+        <section class="wiki-section">
+            <div class="section-header">
+                <i class="fas fa-tools"></i>
+                <h2>准备工作</h2>
+            </div>
+            
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3><i class="fas fa-coffee"></i> 安装Java 21</h3>
+                    <p>推荐使用Java 21以获得最佳性能</p>
+                    <ul>
+                        <li>下载官方Java 21开发工具包</li>
+                        <li>确保系统环境变量配置正确</li>
+                        <li>验证安装: <code>java -version</code></li>
+                    </ul>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3><i class="fas fa-download"></i> 下载游戏启动器</h3>
+                    <p>选择以下任一启动器：</p>
+                    <div class="download-buttons">
+                        <a href="#" class="download-btn">
+                            <i class="fas fa-rocket"></i> PCL2启动器
+                        </a>
+                        <a href="#" class="download-btn">
+                            <i class="fas fa-cube"></i> HMCL启动器
+                        </a>
+                    </div>
+                    <p class="note">PCL2启动器对整合包支持更佳</p>
+                </div>
+            </div>
+        </section>
         
-        <div class="important">
-            <h3>⚠️ 汉化注意事项</h3>
-            <ul>
-                <li>确保使用NeoForge版本的I18n模组，Fabric版本会导致崩溃</li>
-                <li>如果任务书汉化不显示，尝试重新加载资源包</li>
-                <li>部分硬编码文本可能无法汉化，属于正常现象</li>
-                <li>遇到崩溃问题，请检查模组版本是否匹配</li>
-            </ul>
-            <p>更多汉化资源请访问：<a href="https://docs.qq.com/sheet/DWlJLZ2dPdFR3aldS" target="_blank">汉化补丁大集合表格</a></p>
-        </div>
-
-        <div class="important">
-            <h3>⚠️ 重要提示</h3>
-            <p>在继续之前，请确保您已经成功安装All the Mods 10整合包并能正常启动游戏！</p>
-        </div>
-
-        <h2>👥 加入QQ群获取必要信息</h2>
+        <section class="wiki-section">
+            <div class="section-header">
+                <i class="fas fa-box-open"></i>
+                <h2>安装整合包</h2>
+            </div>
+            
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <h3><i class="fas fa-cloud-download-alt"></i> 在启动器中安装整合包</h3>
+                <ol>
+                    <li>打开启动器，进入"下载"或"游戏列表"</li>
+                    <li>搜索关键词"<strong>ATM10</strong>"</li>
+                    <li>选择<strong>1.21.1 All the Mods 10-3.2版本</strong></li>
+                    <li>等待下载和安装完成</li>
+                </ol>
+                
+                <div class="highlight-box">
+                    <h3><i class="fas fa-exclamation-circle"></i> 重要提示</h3>
+                    <p>必须选择<strong>10-3.2版本</strong>，否则无法连接到服务器！</p>
+                    <p>下载可能需要较长时间(约15-30分钟)，请耐心等待</p>
+                </div>
+            </div>
+        </section>
         
-        <div class="qq-group">
-            <p>请先加入我们的QQ群获取必要的信息：</p>
-            <p style="font-size: 1.5em;">QQ群号：<strong>275502309</strong></p>
-        </div>
-        <h2>🎮 连接服务器</h2>
+        <section class="wiki-section">
+            <div class="section-header">
+                <i class="fas fa-language"></i>
+                <h2>汉化教程</h2>
+            </div>
+            
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3><i class="fas fa-file-download"></i> 下载汉化补丁</h3>
+                    <p>选择以下任一方式下载汉化补丁：</p>
+                    <div class="download-buttons">
+                        <a href="#" class="download-btn">
+                            <i class="fas fa-download"></i> 夸克网盘下载
+                        </a>
+                        <a href="#" class="download-btn">
+                            <i class="fas fa-link"></i> 备用下载地址
+                        </a>
+                    </div>
+                    <p>汉化补丁由柠娜制作，使用CHATGPT根据27W术语库进行翻译</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">5</div>
+                    <h3><i class="fas fa-cogs"></i> 安装汉化补丁</h3>
+                    <ol>
+                        <li>将下载的汉化补丁解压缩</li>
+                        <li>将文件覆盖到游戏目录: <code>.minecraft/versions/ATM10</code></li>
+                        <li>下载并安装<a href="#" class="download-btn" style="padding:5px 10px; margin:5px;">I18n自动汉化模组</a></li>
+                        <li>在游戏内加载汉化材质包</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <div class="highlight-box">
+                <h3><i class="fas fa-exclamation-triangle"></i> 汉化注意事项</h3>
+                <ul>
+                    <li>确保使用NeoForge版本的I18n模组，Fabric版本会导致崩溃</li>
+                    <li>如果任务书汉化不显示，尝试重新加载资源包</li>
+                    <li>部分硬编码文本可能无法汉化，属于正常现象</li>
+                    <li>遇到崩溃问题，请检查模组版本是否匹配</li>
+                </ul>
+                <p>更多汉化资源请访问：<a href="#" style="color: #e67e22; font-weight: 500;">汉化补丁大集合表格</a></p>
+            </div>
+        </section>
         
-        <div class="step">
-            <span class="step-number">6</span>
-            <strong>启动游戏并加入服务器</strong>
-            <p>按照以下步骤连接：</p>
-            <ol>
-                <li>启动"All the Mods 10(ATM10)"实例</li>
-                <li>进入游戏后点击"多人游戏"</li>
-                <li>点击"添加服务器"</li>
-                <li>在服务器地址输入：<code>wangiii.top:25577</code></li>
-                <li>点击"完成"并选择服务器连接</li>
-            </ol>
-        </div>
+        <section class="wiki-section">
+            <div class="section-header">
+                <i class="fas fa-users"></i>
+                <h2>加入社区</h2>
+            </div>
+            
+            <div class="qq-group-box">
+                <h3><i class="fab fa-qq"></i> 加入QQ群获取完整信息</h3>
+                <p>获取最新更新、汉化补丁和问题解答</p>
+                <div class="qq-number">275502309</div>
+                <p>入群请备注"ATM10玩家"</p>
+            </div>
+        </section>
         
-        <div class="important">
-            <h3>❗ 常见问题解决</h3>
-            <ul>
-                <li><strong>无法连接：</strong> 检查是否安装了所有必要模组和补丁</li>
-                <li><strong>版本不匹配：</strong> 确保使用的是All the Mods 10-3.2版本</li>
-                <li><strong>游戏崩溃：</strong> 尝试分配更多内存（建议4GB以上）</li>
-                <li><strong>汉化问题：</strong> 确保使用正确的I18n模组版本</li>
-                <li><strong>其他问题：</strong> 请在QQ群中咨询管理员</li>
-            </ul>
-        </div>
+        <section class="wiki-section">
+            <div class="section-header">
+                <i class="fas fa-plug"></i>
+                <h2>连接服务器</h2>
+            </div>
+            
+            <div class="step-card">
+                <div class="step-number">6</div>
+                <h3><i class="fas fa-sign-in-alt"></i> 加入服务器</h3>
+                <ol>
+                    <li>启动"All the Mods 10(ATM10)"实例</li>
+                    <li>进入游戏后点击"多人游戏"</li>
+                    <li>点击"添加服务器"</li>
+                    <li>输入服务器地址: <code>wangiii.top:25577</code></li>
+                    <li>点击"完成"并加入游戏</li>
+                </ol>
+            </div>
+            
+            <div class="highlight-box">
+                <h3><i class="fas fa-question-circle"></i> 常见问题解决</h3>
+                <ul>
+                    <li><strong>无法连接：</strong> 检查是否安装了所有必要模组和补丁</li>
+                    <li><strong>版本不匹配：</strong> 确保使用的是All the Mods 10-3.2版本</li>
+                    <li><strong>游戏崩溃：</strong> 尝试分配更多内存（建议6GB以上）</li>
+                    <li><strong>汉化问题：</strong> 确保使用正确的I18n模组版本</li>
+                    <li><strong>其他问题：</strong> 请在QQ群中咨询管理员</li>
+                </ul>
+            </div>
+        </section>
         
-        <h2>🎉 开始游戏！</h2>
-        <p>现在您已经成功连接到我们的All the Mods 10服务器，祝您游戏愉快！</p>
-        <p>记得遵守服务器规则，与其他玩家友好相处。</p>
-        
-        <div class="server-info" style="margin-top: 30px;">
-            <p>再次提醒：</p>
-            <p><strong>服务器IP：</strong> <code>wangiii.top:25577</code></p>
-            <p><strong>QQ群：</strong> 275502309 (获取帮助和最新资讯)</p>
-        </div>
-    </div>
-  <footer id="contact">
-    <div class="container">
-                <h3>联系方式</h3>
-                <p>QQ群: <span class="qq-group">275502309</span></p>
-                <p>Email: xnnserver@gmail.com</p>
-                <p style="margin-top: 15px;">
-                    </a>
+        <section class="wiki-section">
+            <div class="section-header">
+                <i class="fas fa-gamepad"></i>
+                <h2>开始游戏</h2>
+            </div>
+            
+            <div style="text-align: center; padding: 30px;">
+                <h3 style="font-size: 2rem; color: var(--accent); margin-bottom: 20px;">
+                    <i class="fas fa-trophy"></i> 欢迎加入我们的世界！
+                </h3>
+                <p style="font-size: 1.2rem; max-width: 600px; margin: 0 auto 30px;">
+                    您已成功连接到All the Mods 10服务器，现在可以开始您的模组冒险之旅了！
                 </p>
+                <div class="info-card" style="display: inline-block; margin: 0 auto;">
+                    <h3>服务器IP地址</h3>
+                    <p style="font-size: 1.8rem;">wangiii.top:25577</p>
+                </div>
             </div>
-        </div>
+        </section>
         
-        <!-- WANG Logo居中部分 -->
-        <div style="text-align: center; margin: 30px 0;">
-            <img src="https://github.com/WONGIII/picx-images-hosting/raw/master/1000021619.41yalp3fs9.png" 
-                 alt="WANG Logo" 
-                 style="height: 70px; filter: darkness(0) invert(1);">
-        </div>
-        
-        <div class="copyright">
-            <p>2025 XiXi & WANG 联合服务器.</p>
-        </div>
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>联系方式</h3>
+                    <p><i class="fab fa-qq"></i> QQ群: 275502309</p>
+                    <p><i class="fas fa-envelope"></i> Email: xnnserver@gmail.com</p>
+                    <p><i class="fas fa-headset"></i> 技术支持: 群内@管理员</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>服务器信息</h3>
+                    <p>版本: ATM10-3.2</p>
+                    <p>在线时间: 24/7</p>
+                    <p>游戏模式: 生存模式</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>相关资源</h3>
+                    <p><a href="#" style="color: #ecf0f1;">汉化补丁下载</a></p>
+                    <p><a href="#" style="color: #ecf0f1;">模组列表</a></p>
+                    <p><a href="#" style="color: #ecf0f1;">游戏规则</a></p>
+                </div>
+            </div>
+            
+            <div class="logo-section">
+                <img src="https://github.com/WONGIII/picx-images-hosting/raw/master/1000021619.41yalp3fs9.png" 
+                     alt="WANG Logo" 
+                     class="server-logo">
+            </div>
+            
+            <div class="copyright">
+                <p>2025 XiXi & WANG 联合服务器</p>
+            </div>
+        </footer>
     </div>
-</footer>
 </body>
 </html>
