@@ -4,6 +4,7 @@
     <!-- 在<head>标签内添加以下内容 -->
     <link rel="icon" href="https://github.com/WONGIII/picx-images-hosting/raw/master/1000021584.9o00zinrlw.png" type="image/png">
     <link rel="shortcut icon" href="https://github.com/WONGIII/picx-images-hosting/raw/master/1000021584.9o00zinrlw.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- 以下是不同设备的适配 -->
     <link rel="apple-touch-icon" href="https://github.com/WONGIII/picx-images-hosting/raw/master/1000021584.9o00zinrlw.png">
@@ -13,6 +14,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>XiXi & WANG 联合服务器</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- 引入Animate.css动画库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <!-- 引入AOS滚动动画库 -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
         :root {
             --primary: #6a8bad;
@@ -33,6 +38,17 @@
             overflow-x: hidden;
         }
         
+        /* 添加页面加载动画 */
+        body.loaded {
+            opacity: 1;
+            transition: opacity 0.6s ease-out;
+        }
+        
+        /* 初始加载状态 */
+        body {
+            opacity: 0;
+        }
+        
         .blur-bg {
             position: fixed;
             top: 0;
@@ -42,6 +58,21 @@
             background: var(--gradient);
             z-index: -2;
             opacity: 0.1;
+            animation: gradientShift 15s ease infinite alternate;
+            background-size: 200% 200%;
+        }
+        
+        /* 背景渐变动画 */
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
         }
         
         .container {
@@ -58,6 +89,7 @@
             top: 0;
             z-index: 100;
             box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
         
         .header-content {
@@ -69,12 +101,18 @@
         .logo {
             display: flex;
             align-items: center;
+            transition: all 0.3s ease;
         }
         
         .logo img {
             height: 50px;
             margin-right: 15px;
             filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+            transition: all 0.3s ease;
+        }
+        
+        .logo:hover img {
+            transform: rotate(10deg) scale(1.1);
         }
         
         .logo-text h1 {
@@ -83,6 +121,7 @@
             color: var(--primary);
             font-size: 24px;
             letter-spacing: 1px;
+            transition: all 0.3s ease;
         }
         
         .logo-text p {
@@ -91,6 +130,7 @@
             color: var(--text);
             font-size: 13px;
             opacity: 0.8;
+            transition: all 0.3s ease;
         }
         
         nav ul {
@@ -102,6 +142,7 @@
         
         nav ul li {
             margin-left: 25px;
+            position: relative;
         }
         
         nav ul li a {
@@ -132,10 +173,17 @@
             width: 100%;
         }
         
+        /* 添加导航项悬停动画 */
+        nav ul li:hover {
+            transform: translateY(-2px);
+        }
+        
+        /* 英雄区域动画 */
         .hero {
             padding: 100px 0 80px;
             text-align: center;
             position: relative;
+            overflow: hidden;
         }
         
         .hero-content {
@@ -143,6 +191,17 @@
             margin: 0 auto;
             position: relative;
             z-index: 1;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+            animation-delay: 0.3s;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
         
         .hero h2 {
@@ -175,11 +234,43 @@
             border: none;
             cursor: pointer;
             font-size: 15px;
+            position: relative;
+            overflow: hidden;
         }
         
         .btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 25px rgba(106, 139, 173, 0.4);
+        }
+        
+        /* 按钮波纹效果 */
+        .btn:after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+        }
+        
+        .btn:focus:not(:active)::after {
+            animation: ripple 1s ease-out;
+        }
+        
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(20, 20);
+                opacity: 0;
+            }
         }
         
         .btn-outline {
@@ -196,6 +287,7 @@
         
         .section {
             padding: 80px 0;
+            position: relative;
         }
         
         .section-title {
@@ -221,6 +313,13 @@
             bottom: -10px;
             left: 50%;
             transform: translateX(-50%);
+            animation: underlinePulse 2s infinite;
+        }
+        
+        @keyframes underlinePulse {
+            0% { width: 50px; }
+            50% { width: 70px; }
+            100% { width: 50px; }
         }
         
         .section-title p {
@@ -245,7 +344,24 @@
             transition: all 0.3s;
             width: 350px;
             position: relative;
+            transform: translateY(20px);
+            opacity: 0;
         }
+        
+        .card.animate {
+            animation: cardFadeIn 0.6s ease-out forwards;
+        }
+        
+        @keyframes cardFadeIn {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .card:nth-child(1).animate { animation-delay: 0.1s; }
+        .card:nth-child(2).animate { animation-delay: 0.2s; }
+        .card:nth-child(3).animate { animation-delay: 0.3s; }
         
         .card:before {
             content: '';
@@ -255,11 +371,18 @@
             width: 100%;
             height: 5px;
             background: var(--gradient);
+            transition: all 0.3s;
         }
         
         .card:hover {
             transform: translateY(-10px);
             box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+        }
+        
+        /* 卡片悬停动画 */
+        .card:hover:before {
+            height: 10px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
         }
         
         .card-content {
@@ -281,6 +404,13 @@
             color: var(--primary);
             margin-bottom: 15px;
             display: inline-block;
+            transition: all 0.3s;
+        }
+        
+        /* 卡片图标动画 */
+        .card:hover .card-icon {
+            transform: scale(1.2) rotate(10deg);
+            color: var(--accent);
         }
         
         .server-widget {
@@ -293,6 +423,14 @@
             text-align: center;
             position: relative;
             overflow: hidden;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.6s ease-out;
+        }
+        
+        .server-widget.animate {
+            transform: translateY(0);
+            opacity: 1;
         }
         
         .server-widget:before {
@@ -303,6 +441,11 @@
             width: 100%;
             height: 5px;
             background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            transition: all 0.3s;
+        }
+        
+        .server-widget:hover:before {
+            height: 10px;
         }
         
         .server-widget h3 {
@@ -315,6 +458,14 @@
             border-radius: 10px;
             margin: 20px 0;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.5s ease;
+            transform: scale(0.98);
+            opacity: 0;
+        }
+        
+        .project-img.animate {
+            transform: scale(1);
+            opacity: 1;
         }
         
         footer {
@@ -332,6 +483,12 @@
             width: 100%;
             height: 10px;
             background: linear-gradient(90deg, var(--accent) 0%, var(--primary) 100%);
+            animation: gradientSlide 3s infinite alternate;
+        }
+        
+        @keyframes gradientSlide {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
         }
         
         .footer-content {
@@ -347,7 +504,19 @@
             min-width: 250px;
             margin-bottom: 30px;
             padding: 0 20px;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.6s ease-out;
         }
+        
+        .footer-section.animate {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .footer-section:nth-child(1) { transition-delay: 0.1s; }
+        .footer-section:nth-child(2) { transition-delay: 0.2s; }
+        .footer-section:nth-child(3) { transition-delay: 0.3s; }
         
         .footer-section h3 {
             font-weight: 500;
@@ -380,6 +549,11 @@
         
         .footer-links li {
             margin-bottom: 10px;
+            transition: all 0.3s;
+        }
+        
+        .footer-links li:hover {
+            transform: translateX(5px);
         }
         
         .footer-links a {
@@ -388,6 +562,7 @@
             opacity: 0.8;
             transition: opacity 0.3s;
             font-size: 0.95rem;
+            display: inline-block;
         }
         
         .footer-links a:hover {
@@ -414,7 +589,7 @@
         
         .social-links a:hover {
             background: rgba(255,255,255,0.2);
-            transform: translateY(-3px);
+            transform: translateY(-3px) scale(1.1);
         }
         
         .copyright {
@@ -424,6 +599,15 @@
             font-size: 0.9rem;
             opacity: 0.7;
             text-align: center;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.6s ease-out;
+            transition-delay: 0.4s;
+        }
+        
+        .copyright.animate {
+            transform: translateY(0);
+            opacity: 1;
         }
         
         .qq-group {
@@ -433,8 +617,199 @@
             display: inline-block;
             margin-top: 10px;
             font-family: monospace;
+            transition: all 0.3s;
+        }
+        
+        .qq-group:hover {
+            background: rgba(255,255,255,0.2);
+            transform: scale(1.05);
         }
 
+        /* 品牌展示区域动画 */
+        .brands-section {
+            padding: 80px 0;
+            background: white;
+            position: relative;
+        }
+
+        .brands-section:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(90deg, var(--accent) 0%, var(--primary) 100%);
+            animation: gradientSlide 3s infinite alternate;
+        }
+
+        .brands-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 30px;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .brand-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            transform: scale(0.9);
+            opacity: 0;
+            transition: all 0.5s ease-out;
+        }
+
+        .brand-item.animate {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .brand-item img {
+            height: 80px;
+            margin-bottom: 15px;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.1));
+            transition: all 0.3s;
+        }
+
+        .brand-item:hover img {
+            transform: scale(1.1) rotate(5deg);
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.2));
+        }
+
+        .brand-item .placeholder {
+            width: 80px;
+            height: 80px;
+            background: var(--light);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 15px;
+            transition: all 0.3s;
+        }
+
+        .brand-item:hover .placeholder {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .brand-item p {
+            margin: 0;
+            font-weight: 500;
+            color: var(--text);
+            transition: all 0.3s;
+        }
+
+        .brand-item:hover p {
+            color: var(--primary);
+        }
+        
+        /* 浮动粒子背景 */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            background: rgba(106, 139, 173, 0.3);
+            border-radius: 50%;
+            animation: float linear infinite;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* 滚动条美化 */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.05);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent);
+        }
+        
+        /* 鼠标悬停放大效果 */
+        .hover-scale {
+            transition: transform 0.3s ease;
+        }
+        
+        .hover-scale:hover {
+            transform: scale(1.03);
+        }
+        
+        /* 闪烁动画 */
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        /* 旋转动画 */
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        /* 脉冲动画 */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        /* 呼吸动画 */
+        @keyframes breathe {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+        
+        /* 汉堡菜单动画 */
+        .menu-toggle span {
+            transition: all 0.3s ease;
+        }
+        
+        .menu-toggle.active span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+        
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .menu-toggle.active span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
         
 @media (max-width: 768px) {
     /* 1. 删除 body 的 padding-top */
@@ -589,6 +964,43 @@
     .social-links {
         justify-content: center;
     }
+    
+    /* 移动端品牌展示调整 */
+    .brands-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+    
+    .brand-item img, 
+    .brand-item .placeholder {
+        height: 60px;
+        width: 60px;
+    }
+}
+
+@media (max-width: 480px) {
+    .brands-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .hero h2 {
+        font-size: 2rem;
+    }
+    
+    .hero p {
+        font-size: 1rem;
+    }
+    
+    .btn-group {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .btn-outline {
+        margin-left: 0;
+        margin-top: 15px;
+    }
 }
     /* 导航栏滚动效果 */
 header {
@@ -702,11 +1114,12 @@ header.scrolled nav ul li a {
         grid-template-columns: repeat(2, 1fr);
     }
 }
-
-}
     </style>
 </head>
 <body>
+    <!-- 添加浮动粒子背景 -->
+    <div class="particles" id="particles"></div>
+    
     <div class="blur-bg"></div>
     
 <header>
@@ -890,12 +1303,12 @@ header.scrolled nav ul li a {
             <div class="footer-section">
                 <h3>关于我们</h3>
                 <p>XiXi & WANG 联合服务器是由热爱游戏的团队创建，致力于提供高质量的多游戏服务器体验。</p>
-                <div class="social-links">
-                    <a href="https://github.com/WONGIII/ProjectWXI" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-                    <a href="#"><i class="fab fa-qq"></i></a>
-                    <a href="#"><i class="fab fa-weixin"></i></a>
-                    <a href="#"><i class="fab fa-discord"></i></a>
-                </div>
+<div class="social-links">
+    <a href="https://github.com/WONGIII/ProjectWXI" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+    <a href="http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=rHxKAuwaxoZIjIQpuFlP2--sXhP4gpoi&authKey=ovRcZ0LqD9hddpvFSUvLKavtYBc%2Brsu%2BZlNOuR6TBmpRCeW9vuGAW6bVPBdiIzLM&noverify=0&group_code=275502309" target="_blank" title="QQ"><i class="fab fa-qq"></i></a>
+    <a href="https://xnnserver.dpdns.org/" target="_blank" title="微信"><i class="fab fa-weixin"></i></a>
+    <a href="https://discord.gg/ZPe3hxEQ" target="_blank" title="Discord"><i class="fab fa-discord"></i></a>
+</div>
             </div>
             <div class="footer-section">
                 <h3>快速链接</h3>
@@ -923,7 +1336,8 @@ header.scrolled nav ul li a {
         <div style="text-align: center; margin: 30px 0;">
             <img src="https://github.com/WONGIII/picx-images-hosting/raw/master/1000021619.41yalp3fs9.png" 
                  alt="WANG Logo" 
-                 style="height: 70px; filter: brightness(0) invert(1);">
+                 style="height: 70px; filter: brightness(0) invert(1);"
+                 class="hover-scale">
         </div>
         
         <div class="copyright">
@@ -935,6 +1349,9 @@ header.scrolled nav ul li a {
 
 <!-- Font Awesome for icons -->
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+<!-- AOS动画库 -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
 <!-- 平滑滚动效果 -->
 <script>
@@ -978,6 +1395,121 @@ window.addEventListener('scroll', function() {
                 document.querySelector('nav ul').classList.remove('show');
             });
         });
+        
+        // 页面加载动画
+        document.addEventListener('DOMContentLoaded', function() {
+            // 标记页面已加载
+            document.body.classList.add('loaded');
+            
+            // 初始化AOS动画库
+            AOS.init({
+                duration: 800,
+                easing: 'ease-out-quad',
+                once: true
+            });
+            
+            // 卡片动画
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.add('animate');
+                }, index * 100);
+            });
+            
+            // 服务器小部件动画
+            const serverWidget = document.querySelector('.server-widget');
+            if (serverWidget) {
+                setTimeout(() => {
+                    serverWidget.classList.add('animate');
+                }, 300);
+            }
+            
+            // 项目图片动画
+            const projectImg = document.querySelector('.project-img');
+            if (projectImg) {
+                setTimeout(() => {
+                    projectImg.classList.add('animate');
+                }, 400);
+            }
+            
+            // 页脚动画
+            const footerSections = document.querySelectorAll('.footer-section');
+            footerSections.forEach((section, index) => {
+                setTimeout(() => {
+                    section.classList.add('animate');
+                }, index * 100);
+            });
+            
+            const copyright = document.querySelector('.copyright');
+            if (copyright) {
+                setTimeout(() => {
+                    copyright.classList.add('animate');
+                }, 500);
+            }
+            
+            // 品牌展示动画
+            const brandItems = document.querySelectorAll('.brand-item');
+            brandItems.forEach((item, index) => {
+                setTimeout(() => {
+                    item.classList.add('animate');
+                }, index * 100);
+            });
+        });
+        
+        // 创建浮动粒子效果
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // 随机大小
+                const size = Math.random() * 10 + 5;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // 随机位置
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.bottom = `-${size}px`;
+                
+                // 随机透明度
+                particle.style.opacity = Math.random() * 0.5 + 0.1;
+                
+                // 随机动画持续时间
+                const duration = Math.random() * 20 + 10;
+                particle.style.animationDuration = `${duration}s`;
+                
+                // 随机延迟
+                particle.style.animationDelay = `${Math.random() * 10}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // 页面加载后创建粒子
+        window.addEventListener('load', createParticles);
+        
+        // 滚动触发动画
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.card, .server-widget, .project-img, .brand-item');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.2;
+                
+                if (elementPosition < screenPosition) {
+                    element.classList.add('animate');
+                }
+            });
+        }
+        
+        // 添加滚动监听
+        window.addEventListener('scroll', animateOnScroll);
+        
+        // 初始检查
+        animateOnScroll();
         </script>
 </body>
 </html>
