@@ -623,6 +623,85 @@ header.scrolled nav ul li a {
     padding: 6px 12px !important;
     font-size: 14px !important;
 }
+/* 品牌展示区域样式 */
+.brands-section {
+    padding: 80px 0;
+    background: white;
+    position: relative;
+}
+
+.brands-section:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    background: linear-gradient(90deg, var(--accent) 0%, var(--primary) 100%);
+}
+
+.brands-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 30px;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.brand-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.brand-item img {
+    height: 80px;
+    margin-bottom: 15px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 5px rgba(0,0,0,0.1));
+}
+
+.brand-item .placeholder {
+    width: 80px;
+    height: 80px;
+    background: var(--light);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--primary);
+    margin-bottom: 15px;
+}
+
+.brand-item p {
+    margin: 0;
+    font-weight: 500;
+    color: var(--text);
+}
+
+@media (max-width: 768px) {
+    .brands-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+    
+    .brand-item img, 
+    .brand-item .placeholder {
+        height: 60px;
+        width: 60px;
+    }
+}
+
+@media (max-width: 480px) {
+    .brands-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
 
 }
     </style>
@@ -766,6 +845,41 @@ header.scrolled nav ul li a {
                         <p>赢取独特奖励和游戏内荣誉！</p>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- 品牌展示区域 -->
+<section class="brands-section">
+    <div class="container">
+        <div class="section-title">
+            <h2>Project WXI 旗下品牌</h2>
+            <p>我们联合多个优质品牌，共同打造最佳游戏体验</p>
+        </div>
+        <div class="brands-grid">
+            <div class="brand-item">
+                <img src="https://raw.githubusercontent.com/WONGIII/img/main/XIXI2%20%E6%8B%B7%E8%B4%9D1.png" alt="XiXi">
+                <p>XiXi</p>
+            </div>
+            <div class="brand-item">
+                <img src="https://raw.githubusercontent.com/WONGIII/img/main/wang7%20b.png" alt="WANG">
+                <p>WANG</p>
+            </div>
+            <div class="brand-item">
+                <img src="https://raw.githubusercontent.com/WONGIII/img/main/xnn2_4%20%E6%8B%B7%E8%B4%9D.png" alt="Xnn*">
+                <p>Xnn*</p>
+            </div>
+            <div class="brand-item">
+                <div class="placeholder">Ss*</div>
+                <p>Ss*</p>
+            </div>
+            <div class="brand-item">
+                <div class="placeholder">JSY*</div>
+                <p>JSY*</p>
+            </div>
+            <div class="brand-item">
+                <div class="placeholder">QJCR</div>
+                <p>QJCR</p>
             </div>
         </div>
     </div>
