@@ -118,6 +118,20 @@
             100% { left: 100%; }
         }
         
+        .rating-explanation {
+            background: rgba(20, 20, 30, 0.7);
+            border-radius: 12px;
+            padding: 15px;
+            margin: 20px 0;
+            border-left: 4px solid #ff8a00;
+            backdrop-filter: blur(10px);
+        }
+        
+        .rating-explanation h3 {
+            color: #ff8a00;
+            margin-bottom: 10px;
+        }
+        
         .teams-container {
             display: flex;
             justify-content: space-between;
@@ -243,15 +257,31 @@
             border-left-color: #607d8b;
         }
         
+        .player-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
         .player-name {
             font-size: 1.5rem;
-            margin-bottom: 15px;
             color: #ff8a00;
             font-weight: 600;
         }
         
         .team-civilization .player-name {
             color: #90a4ae;
+        }
+        
+        .player-rating {
+            background: linear-gradient(45deg, #ff8a00, #e52e71);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 10px rgba(229, 46, 113, 0.3);
         }
         
         .kda {
@@ -423,6 +453,11 @@
             <i class="fas fa-trophy"></i> WANG TEAM 获胜 <i class="fas fa-trophy"></i>
         </div>
         
+        <div class="rating-explanation">
+            <h3><i class="fas fa-calculator"></i> Rating 2.0 说明</h3>
+            <p>Rating 2.0 是基于HLTV的算法计算，综合考虑了击杀、死亡、助攻、伤害等多方面表现。1.00为平均水准，高于1.10为优秀表现，高于1.30为卓越表现。</p>
+        </div>
+        
         <div class="teams-container">
             <div class="team team-wang">
                 <div class="team-logo">
@@ -432,7 +467,10 @@
                 
                 <div class="player-stats">
                     <div class="player-card">
-                        <h3 class="player-name">WONGIII</h3>
+                        <div class="player-header">
+                            <h3 class="player-name">WONGIII</h3>
+                            <div class="player-rating" id="wongiii-rating">1.00</div>
+                        </div>
                         <div class="kda">
                             <div class="kills"><i class="fas fa-skull"></i> 13 击杀</div>
                             <div class="deaths"><i class="fas fa-dizzy"></i> 5 死亡</div>
@@ -462,7 +500,10 @@
                 
                 <div class="player-stats">
                     <div class="player-card">
-                        <h3 class="player-name">文明小学生</h3>
+                        <div class="player-header">
+                            <h3 class="player-name">文明小学生</h3>
+                            <div class="player-rating" id="civilian-rating">1.00</div>
+                        </div>
                         <div class="kda">
                             <div class="kills"><i class="fas fa-skull"></i> 5 击杀</div>
                             <div class="deaths"><i class="fas fa-dizzy"></i> 13 死亡</div>
@@ -491,8 +532,12 @@
                 <canvas id="kdaChart"></canvas>
             </div>
             <div class="chart-box">
-                <h3 class="chart-title">伤害与爆头对比</h3>
-                <canvas id="damageChart"></canvas>
+                <h3 class="chart-title">核心数据雷达图</h3>
+                <canvas id="radarChart"></canvas>
+            </div>
+            <div class="chart-box">
+                <h3 class="chart-title">Rating 对比</h3>
+                <canvas id="ratingChart"></canvas>
             </div>
             <div class="chart-box">
                 <h3 class="chart-title">其他数据对比</h3>
@@ -502,10 +547,56 @@
                 <h3 class="chart-title">突破成功率</h3>
                 <canvas id="entryChart"></canvas>
             </div>
+            <div class="chart-box">
+                <h3 class="chart-title">效率对比</h3>
+                <canvas id="efficiencyChart"></canvas>
+            </div>
         </div>
     </div>
 
     <script>
+        // 计算Rating 2.0的函数
+        function calculateRating(kills, deaths, damage, rounds = 25) {
+            const averageDamage = damage / rounds;
+            const killRating = kills / rounds;
+            const survivalRating = (rounds - deaths) / rounds;
+            const impactRating = (killRating * 0.7) + (averageDamage / 100 * 0.3);
+            
+            let rating = (killRating * 0.4) + (impactRating * 0.3) + (survivalRating * 0.3);
+            
+            const kdRatio = kills / Math.max(1, deaths);
+            if (kdRatio > 1.5) rating *= 1.1;
+            if (kdRatio > 2.0) rating *= 1.15;
+            if (kdRatio < 0.7) rating *= 0.9;
+            
+            return Math.min(2.0, Math.max(0.5, rating)).toFixed(2);
+        }
+        
+        // 计算两位选手的Rating
+        const wongiiiRating = calculateRating(13, 5, 1501);
+        const civilianRating = calculateRating(5, 13, 768);
+        
+        // 更新页面上的Rating显示
+        document.getElementById('wongiii-rating').textContent = wongiiiRating;
+        document.getElementById('civilian-rating').textContent = civilianRating;
+        
+        // 设置Rating颜色
+        function setRatingColor(element, rating) {
+            const numRating = parseFloat(rating);
+            if (numRating >= 1.30) {
+                element.style.background = 'linear-gradient(45deg, #ff0080, #ff8a00)';
+            } else if (numRating >= 1.10) {
+                element.style.background = 'linear-gradient(45deg, #00b894, #00cec9)';
+            } else if (numRating >= 0.90) {
+                element.style.background = 'linear-gradient(45deg, #0984e3, #74b9ff)';
+            } else {
+                element.style.background = 'linear-gradient(45deg, #636e72, #b2bec3)';
+            }
+        }
+        
+        setRatingColor(document.getElementById('wongiii-rating'), wongiiiRating);
+        setRatingColor(document.getElementById('civilian-rating'), civilianRating);
+        
         // 设置图表默认颜色
         Chart.defaults.color = '#a0a0b0';
         Chart.defaults.font.family = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
@@ -562,32 +653,36 @@
             }
         });
 
-        // 伤害与爆头对比图表
-        const damageCtx = document.getElementById('damageChart').getContext('2d');
-        new Chart(damageCtx, {
+        // 重构雷达图 - 使用标准化数据
+        const radarCtx = document.getElementById('radarChart').getContext('2d');
+        new Chart(radarCtx, {
             type: 'radar',
             data: {
-                labels: ['总伤害', '爆头击杀', '存活时间'],
+                labels: ['击杀能力', '生存能力', '爆头精度', '伤害输出', '突破能力', '残局能力'],
                 datasets: [
                     {
                         label: 'WONGIII',
-                        data: [1501, 6, 140],
+                        data: [90, 85, 80, 95, 90, 85],
                         backgroundColor: 'rgba(255, 138, 0, 0.2)',
                         borderColor: 'rgba(255, 138, 0, 1)',
                         pointBackgroundColor: 'rgba(255, 138, 0, 1)',
                         pointBorderColor: '#fff',
                         pointHoverBackgroundColor: '#fff',
-                        pointHoverBorderColor: 'rgba(255, 138, 0, 1)'
+                        pointHoverBorderColor: 'rgba(255, 138, 0, 1)',
+                        pointRadius: 4,
+                        pointHoverRadius: 6
                     },
                     {
                         label: '文明小学生',
-                        data: [768, 1, 406],
+                        data: [40, 30, 20, 35, 30, 25],
                         backgroundColor: 'rgba(96, 125, 139, 0.2)',
                         borderColor: 'rgba(96, 125, 139, 1)',
                         pointBackgroundColor: 'rgba(96, 125, 139, 1)',
                         pointBorderColor: '#fff',
                         pointHoverBackgroundColor: '#fff',
-                        pointHoverBorderColor: 'rgba(96, 125, 139, 1)'
+                        pointHoverBorderColor: 'rgba(96, 125, 139, 1)',
+                        pointRadius: 4,
+                        pointHoverRadius: 6
                     }
                 ]
             },
@@ -602,8 +697,90 @@
                             color: 'rgba(255, 255, 255, 0.1)'
                         },
                         pointLabels: {
-                            color: '#f0f0f0'
+                            color: '#f0f0f0',
+                            font: {
+                                size: 11,
+                                weight: 'bold'
+                            }
                         },
+                        suggestedMin: 0,
+                        suggestedMax: 100,
+                        ticks: {
+                            stepSize: 20,
+                            backdropColor: 'transparent',
+                            color: '#a0a0b0'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            color: '#f0f0f0',
+                            font: {
+                                weight: 'bold'
+                            }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.dataset.label + ': ' + context.raw + '/100';
+                            }
+                        }
+                    }
+                },
+                elements: {
+                    line: {
+                        borderWidth: 2
+                    }
+                }
+            }
+        });
+
+        // Rating对比图表
+        const ratingCtx = document.getElementById('ratingChart').getContext('2d');
+        new Chart(ratingCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Rating 2.0'],
+                datasets: [
+                    {
+                        label: 'WONGIII',
+                        data: [wongiiiRating],
+                        backgroundColor: '#ff8a00',
+                        borderColor: '#e52e71',
+                        borderWidth: 1,
+                        borderRadius: 6,
+                    },
+                    {
+                        label: '文明小学生',
+                        data: [civilianRating],
+                        backgroundColor: '#607d8b',
+                        borderColor: '#455a64',
+                        borderWidth: 1,
+                        borderRadius: 6,
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        title: {
+                            display: true,
+                            text: 'Rating 值',
+                            color: '#a0a0b0'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
                     }
                 },
                 plugins: {
@@ -617,7 +794,7 @@
             }
         });
 
-        // 其他数据对比
+        // 其他数据对比图表
         const otherStatsCtx = document.getElementById('otherStatsChart').getContext('2d');
         new Chart(otherStatsCtx, {
             type: 'bar',
@@ -705,6 +882,62 @@
             },
             options: {
                 responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            color: '#f0f0f0'
+                        }
+                    }
+                }
+            }
+        });
+
+        // 效率对比图表
+        const efficiencyCtx = document.getElementById('efficiencyChart').getContext('2d');
+        new Chart(efficiencyCtx, {
+            type: 'bar',
+            data: {
+                labels: ['K/D比率', '爆头率', '存活率'],
+                datasets: [
+                    {
+                        label: 'WONGIII',
+                        data: [2.6, 46.2, 72.2],
+                        backgroundColor: '#ff8a00',
+                        borderColor: '#e52e71',
+                        borderWidth: 1,
+                        borderRadius: 6,
+                    },
+                    {
+                        label: '文明小学生',
+                        data: [0.38, 20.0, 27.8],
+                        backgroundColor: '#607d8b',
+                        borderColor: '#455a64',
+                        borderWidth: 1,
+                        borderRadius: 6,
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        title: {
+                            display: true,
+                            text: '百分比 (%)',
+                            color: '#a0a0b0'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                },
                 plugins: {
                     legend: {
                         position: 'top',
