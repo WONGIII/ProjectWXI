@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS2 沙城2比赛结果</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: 
+                linear-gradient(rgba(25, 25, 35, 0.85), rgba(15, 20, 40, 0.9)),
+                url('https://raw.githubusercontent.com/WONGIII/img/main/shot21a.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #f0f0f0;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 30px;
+            background: rgba(20, 20, 30, 0.7);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #ff8a00, #e52e71);
+            z-index: 1;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            background: linear-gradient(45deg, #ff8a00, #e52e71);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 15px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .match-info {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            font-size: 1.2rem;
+            color: #a0a0b0;
+            margin-top: 15px;
+        }
+        
+        .match-info span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+        }
+        
+        .winner-banner {
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px;
+            background: linear-gradient(90deg, rgba(96, 125, 139, 0.8), rgba(69, 90, 100, 0.8));
+            border-radius: 12px;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            box-shadow: 0 8px 20px rgba(69, 90, 100, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .winner-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: shine 3s infinite;
+        }
+        
+        @keyframes shine {
+            0% { left: -100%; }
+            20% { left: 100%; }
+            100% { left: 100%; }
+        }
+        
+        .rating-explanation {
+            background: rgba(20, 20, 30, 0.7);
+            border-radius: 12px;
+            padding: 15px;
+            margin: 20px 0;
+            border-left: 4px solid #607d8b;
+            backdrop-filter: blur(10px);
+        }
+        
+        .rating-explanation h3 {
+            color: #607d8b;
+            margin-bottom: 10px;
+        }
+        
+        .teams-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .team {
+            flex: 1;
+            background: rgba(25, 25, 35, 0.7);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .team::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #607d8b, #455a64);
+        }
+        
+        .team:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+        
+        .team-wang {
+            border-top: 5px solid #ff8a00;
+        }
+        
+        .team-civilization {
+            border-top: 5px solid #607d8b;
+        }
+        
+        .team-logo {
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            background: rgba(20, 20, 30, 0.9);
+            position: relative;
+        }
+        
+        .team-wang .team-logo {
+            border-color: #ff8a00;
+        }
+        
+        .team-civilization .team-logo {
+            border-color: #607d8b;
+        }
+        
+        .team-logo::after {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            border-radius: 50%;
+            padding: 5px;
+            background: linear-gradient(45deg, #ff8a00, #e52e71, #ff8a00);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.7;
+        }
+        
+        .team-logo img {
+            max-width: 80%;
+            max-height: 80%;
+            object-fit: contain;
+            z-index: 1;
+        }
+        
+        .team-name {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #fff;
+            font-weight: 700;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+        }
+        
+        .team-wang .team-name {
+            background: linear-gradient(45deg, #ff8a00, #ffad42);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .team-civilization .team-name {
+            color: #90a4ae;
+        }
+        
+        .player-stats {
+            text-align: left;
+            margin-top: 20px;
+        }
+        
+        .player-card {
+            background: rgba(35, 35, 45, 0.7);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid #ff8a00;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(5px);
+        }
+        
+        .team-civilization .player-card {
+            border-left-color: #607d8b;
+        }
+        
+        .player-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .player-name {
+            font-size: 1.5rem;
+            color: #ff8a00;
+            font-weight: 600;
+        }
+        
+        .team-civilization .player-name {
+            color: #90a4ae;
+        }
+        
+        .player-rating {
+            background: linear-gradient(45deg, #ff8a00, #e52e71);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 10px rgba(229, 46, 113, 0.3);
+        }
+        
+        .kda {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            background: rgba(40, 40, 50, 0.8);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        
+        .kills {
+            color: #ff5252;
+        }
+        
+        .deaths {
+            color: #a0a0b0;
+        }
+        
+        .assists {
+            color: #ffb142;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 15px;
+        }
+        
+        .stat {
+            background: rgba(40, 40, 50, 0.8);
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s ease;
+        }
+        
+        .stat:hover {
+            transform: translateY(-2px);
+            background: rgba(50, 50, 60, 0.8);
+        }
+        
+        .stat span {
+            color: #ff8a00;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-top: 5px;
+        }
+        
+        .team-civilization .stat span {
+            color: #90a4ae;
+        }
+        
+        .charts-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-top: 40px;
+        }
+        
+        .chart-box {
+            background: rgba(25, 25, 35, 0.7);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .chart-title {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #ff8a00;
+            font-size: 1.3rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .map-banner {
+            width: 100%;
+            height: 220px;
+            background: 
+                linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                url('https://raw.githubusercontent.com/WONGIII/img/main/ComfyUI_00145_%20%E6%8B%B7%E8%B4%9D.png') center/cover;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 40px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .map-text {
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, #ff8a00, #e52e71);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 800;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .vs-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 30px 0;
+        }
+        
+        .vs-text {
+            background: linear-gradient(45deg, #ff8a00, #e52e71);
+            color: white;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            box-shadow: 0 8px 20px rgba(229, 46, 113, 0.5);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            z-index: 2;
+        }
+        
+        @media (max-width: 900px) {
+            .teams-container {
+                flex-direction: column;
+            }
+            
+            .charts-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>CS2 沙城2比赛结果</h1>
+            <div class="match-info">
+                <span><i class="fas fa-hashtag"></i> 比赛ID: 11</span>
+                <span><i class="fas fa-map-marked-alt"></i> 地图: 沙城2</span>
+                <span><i class="fas fa-clock"></i> 时间: 24 回合</span>
+            </div>
+        </header>
+        
+        <div class="winner-banner">
+            <i class="fas fa-trophy"></i> 文明小学生队 获胜 <i class="fas fa-trophy"></i>
+        </div>
+        
+        <div class="rating-explanation">
+            <h3><i class="fas fa-calculator"></i> Rating 2.0 说明</h3>
+            <p>Rating 2.0 是基于HLTV的算法计算，综合考虑了击杀、死亡、助攻、伤害等多方面表现。1.00为平均水准，高于1.10为优秀表现，高于1.30为卓越表现。</p>
+        </div>
+        
+        <div class="teams-container">
+            <div class="team team-wang">
+                <div class="team-logo">
+                    <img src="https://raw.githubusercontent.com/WONGIII/img/main/ComfyUI_00137_.png" alt="WANG TEAM Logo">
+                </div>
+                <h2 class="team-name">WANG TEAM</h2>
+                
+                <div class="player-stats">
+                    <div class="player-card">
+                        <div class="player-header">
+                            <h3 class="player-name">WONGIII</h3>
+                            <div class="player-rating" id="wongiii-rating">1.00</div>
+                        </div>
+                        <div class="kda">
+                            <div class="kills"><i class="fas fa-skull"></i> 11 击杀</div>
+                            <div class="deaths"><i class="fas fa-dizzy"></i> 13 死亡</div>
+                            <div class="assists"><i class="fas fa-hands-helping"></i> 0 助攻</div>
+                        </div>
+                        <div class="stats-grid">
+                            <div class="stat">总伤害 <span>1592</span></div>
+                            <div class="stat">爆头击杀 <span>6</span></div>
+                            <div class="stat">存活时间 <span>476s</span></div>
+                            <div class="stat">闪光成功 <span>0</span></div>
+                            <div class="stat">1v1胜利 <span>11/24</span></div>
+                            <div class="stat">突破成功 <span>11/24</span></div>
+                            <div class="stat">击杀奖励 <span>$3300</span></div>
+                            <div class="stat">金钱获得 <span>$69750</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="vs-badge">
+                <div class="vs-text">VS</div>
+            </div>
+            
+            <div class="team team-civilization">
+                <div class="team-logo">
+                    <i class="fas fa-users fa-3x" style="color: #90a4ae;"></i>
+                </div>
+                <h2 class="team-name">文明小学生队</h2>
+                
+                <div class="player-stats">
+                    <div class="player-card">
+                        <div class="player-header">
+                            <h3 class="player-name">文明小学生</h3>
+                            <div class="player-rating" id="civilian-rating">1.00</div>
+                        </div>
+                        <div class="kda">
+                            <div class="kills"><i class="fas fa-skull"></i> 13 击杀</div>
+                            <div class="deaths"><i class="fas fa-dizzy"></i> 11 死亡</div>
+                            <div class="assists"><i class="fas fa-hands-helping"></i> 0 助攻</div>
+                        </div>
+                        <div class="stats-grid">
+                            <div class="stat">总伤害 <span>1446</span></div>
+                            <div class="stat">爆头击杀 <span>4</span></div>
+                            <div class="stat">存活时间 <span>483s</span></div>
+                            <div class="stat">闪光成功 <span>0</span></div>
+                            <div class="stat">1v1胜利 <span>13/24</span></div>
+                            <div class="stat">突破成功 <span>13/24</span></div>
+                            <div class="stat">击杀奖励 <span>$3000</span></div>
+                            <div class="stat">金钱获得 <span>$74050</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="map-banner">
+            <div class="map-text">沙城2 - Dust II</div>
+        </div>
+        
+        <div class="charts-container">
+            <div class="chart-box">
+                <h3 class="chart-title">击杀/死亡/助攻对比</h3>
+                <canvas id="kdaChart"></canvas>
+            </div>
+            <div class="chart-box">
+                <h3 class="chart-title">核心数据雷达图</h3>
+                <canvas id="radarChart"></canvas>
+            </div>
+            <div class="chart-box">
+                <h3 class="chart-title">Rating 对比</h3>
+                <canvas id="ratingChart"></canvas>
+            </div>
+            <div class="chart-box">
+                <h3 class="chart-title">其他数据对比</h3>
+                <canvas id="otherStatsChart"></canvas>
+            </div>
+            <div class="chart-box">
+                <h3 class="chart-title">突破成功率</h3>
+                <canvas id="entryChart"></canvas>
+            </div>
+            <div class="chart-box">
+                <h3 class="chart-title">效率对比</h3>
+                <canvas id="efficiencyChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 计算Rating 2.0的函数
+        function calculateRating(kills, deaths, damage, rounds = 24) {
+            const averageDamage = damage / rounds;
+            const killRating = kills / rounds;
+            const survivalRating = (rounds - deaths) / rounds;
+            const impactRating = (killRating * 0.7) + (averageDamage / 100 * 0.3);
+            
+            let rating = (killRating * 0.4) + (impactRating * 0.3) + (survivalRating * 0.3);
+            
+            const kdRatio = kills / Math.max(1, deaths);
+            if (kdRatio > 1.5) rating *= 1.1;
+            if (kdRatio > 2.0) rating *= 1.15;
+            if (kdRatio < 0.7) rating *= 0.9;
+            
+            return Math.min(2.0, Math.max(0.5, rating)).toFixed(2);
+        }
+        
+        // 计算两位选手的Rating
+        const wongiiiRating = calculateRating(11, 13, 1592);
+        const civilianRating = calculateRating(13, 11, 1446);
+        
+        // 更新页面上的Rating显示
+        document.getElementById('wongiii-rating').textContent = wongiiiRating;
+        document.getElementById('civilian-rating').textContent = civilianRating;
+        
+        // 设置Rating颜色
+        function setRatingColor(element, rating) {
+            const numRating = parseFloat(rating);
+            if (numRating >= 1.30) {
+                element.style.background = 'linear-gradient(45deg, #ff0080, #ff8a00)';
+            } else if (numRating >= 1.10) {
+                element.style.background = 'linear-gradient(45deg, #00b894, #00cec9)';
+            } else if (numRating >= 0.90) {
+                element.style.background = 'linear-gradient(45deg, #0984e3, #74b9ff)';
+            } else {
+                element.style.background = 'linear-gradient(45deg, #636e72, #b2bec3)';
+            }
+        }
+        
+        setRatingColor(document.getElementById('wongiii-rating'), wongiiiRating);
+        setRatingColor(document.getElementById('civilian-rating'), civilianRating);
+        
+        // 设置图表默认颜色
+        Chart.defaults.color = '#a0a0b0';
+        Chart.defaults.font.family = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
+        Chart.defaults.font.size = 14;
+        
+        // KDA对比图表
+        const kdaCtx = document.getElementById('kdaChart').getContext('2d');
+        new Chart(kdaCtx, {
+            type: 'bar',
+            data: {
+                labels: ['击杀', '死亡', '助攻'],
+                datasets: [
+                    {
+                        label: 'WONGIII',
+                        data: [11, 13, 0],
+                        backgroundColor: '#ff8a00',
+                        borderColor: '#e52e71',
+                        borderWidth: 1,
+                        borderRadius: 6,
+                    },
+                    {
+                        label: '文明小学生',
+                        data: [13, 11, 0],
+                        backgroundColor: '#607d8b',
+                        borderColor: '#455a64',
+                        borderWidth: 1,
+                        borderRadius: 6,
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            color: '#f0f0f0'
+                        }
+                    }
+                }
+            }
+        });
+
+        // 重构雷达图 - 使用标准化数据
+        const radarCtx = document.getElementById('radarChart').getContext('2d');
+        new Chart(radarCtx, {
+            type: 'radar',
+            data: {
+                labels: ['击杀能力', '生存能力', '爆头精度', '伤害输出', '突破能力', '残局能力'],
+                datasets: [
+                    {
+                        label: 'WONGIII',
+                        data: [65, 45, 60, 70, 65, 60],
+                        backgroundColor: 'rgba(255, 138, 0, 0.2)',
+                        borderColor: 'rgba(255, 138, 0, 1)',
+                        pointBackgroundColor: 'rgba(255, 138, 0, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(255, 138, 0, 1)',
+                        pointRadius: 4,
+                        pointHoverRadius: 6
+                    },
+                    {
+                        label: '文明小学生',
+                        data: [75, 55, 40, 65, 75, 70],
+                        backgroundColor: 'rgba(96, 125, 139, 0.2)',
+                        borderColor: 'rgba(96, 125, 139, 1)',
+                        pointBackgroundColor: 'rgba(96, 125, 139, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(96, 125, 139, 1)',
+                        pointRadius: 4,
+                        pointHoverRadius: 6
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    r: {
+                        angleLines: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        pointLabels: {
+                            color: '#f0f0f0',
+                            font: {
+                                size: 11,
+                                weight: 'bold'
+                            }
+                        },
+                        suggestedMin: 0,
+                        suggestedMax: 100,
+                        ticks: {
+                            stepSize: 20,
+                            backdropColor: 'transparent',
+                            color: '#a0a0b0'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            color: '#f0f0f0',
+                            font: {
+                                weight: 'bold'
+                            }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.dataset.label + ': ' + context.raw + '/100';
+                            }
+                        }
+                    }
+                },
+                elements: {
+                    line: {
+                        borderWidth: 2
+                    }
+                }
+            }
+        });
+
+        // Rating对比图表
+        const ratingCtx = document.getElementById('ratingChart').getContext('2d');
+        new Chart(ratingCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Rating 2.0'],
+                datasets: [
+                    {
+                        label: 'WONGIII',
+                        data: [wongiiiRating],
+                        backgroundColor: '#ff8a00',
+                        borderColor: '#e52e71',
+                        borderWidth: 1,
+                        borderRadius: 6,
+                    },
+                    {
+                        label: '文明小学生',
+                        data: [civilianRating],
+                        backgroundColor: '#607d8b',
+                        borderColor: '#455a64',
+                        borderWidth: 1,
+                        borderRadius: 6,
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        title: {
+                            display: true,
+                            text: 'Rating 值',
+                            color: '#a0a0b0'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            color: '#f0f0f0'
+                        }
+                    }
+                }
+            }
+        });
+
+        // 其他数据对比图表
+        const otherStatsCtx = document.getElementById('otherStatsChart').getContext('2d');
+        new Chart(otherStatsCtx, {
+            type: 'bar',
+            data: {
+                labels: ['闪光成功', '1v1胜利', '突破尝试'],
+                datasets: [
+                    {
+                        label: 'WONGIII',
+                        data: [0, 11, 24],
+                        backgroundColor: '#ff8a00',
+                        borderColor: '#e52e71',
+                        borderWidth: 1,
+                        borderRadius: 6,
+                    },
+                    {
+                        label: '文明小学生',
+                        data: [0, 13, 24],
+                        backgroundColor: '#607d8b',
+                        borderColor: '#455a64',
+                        borderWidth: 1,
+                        borderRadius: 6,
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            color: '#f0f0f0'
+                        }
+                    }
+                }
+            }
+        });
+
+        // 突破成功率图表
+        const entryCtx = document.getElementById('entryChart').getContext('2d');
+        new Chart(entryCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['成功突破', '失败突破'],
+                datasets: [
+                    {
+                        label: 'WONGIII',
+                        data: [11, 13],
+                        backgroundColor: [
+                            '#ff8a00',
+                            '#4a4a5a'
+                        ],
+                        borderColor: [
+                            '#e52e71',
+                            '#3a3a4a'
+                        ],
+                        borderWidth: 1
+                    },
+                    {
+                        label: '文明小学生',
+                        data: [13, 11],
+                        backgroundColor: [
+                            '#607d8b',
+                            '#4a4a5a'
+                        ],
+                        borderColor: [
+                            '#455a64',
+                            '#3a3a4a'
+                        ],
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            color: '#f0f0f0'
+                        }
+                    }
+                }
+            }
+        });
+
+        // 效率对比图表
+        const efficiencyCtx = document.getElementById('efficiencyChart').getContext('2d');
+        new Chart(efficiencyCtx, {
+            type: 'bar',
+            data: {
+                labels: ['K/D比率', '爆头率', '存活率'],
+                datasets: [
+                    {
+                        label: 'WONGIII',
+                        data: [0.85, 54.5, 45.8],
+                        backgroundColor: '#ff8a00',
+                        borderColor: '#e52e71',
+                        borderWidth: 1,
+                        borderRadius: 6,
+                    },
+                    {
+                        label: '文明小学生',
+                        data: [1.18, 30.8, 54.2],
+                        backgroundColor: '#607d8b',
+                        borderColor: '#455a64',
+                        borderWidth: 1,
+                        borderRadius: 6,
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        title: {
+                            display: true,
+                            text: '百分比 (%)',
+                            color: '#a0a0b0'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            color: '#f0f0f0'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
