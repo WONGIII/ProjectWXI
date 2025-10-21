@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XiXi我的世界Java版1.21.8服务器加入指南 | WANG 服务器</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Quicksand:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4a90e2;
+            --secondary: #3a7bd5;
+            --accent: #5da8ff;
+            --light: #f8f9fa;
+            --light-blue: #e8f4ff;
+            --light-green: #f1f8e9;
+            --light-yellow: #fff8e1;
+            --light-red: #ffebee;
+            --text: #333;
+            --border-radius: 12px;
+            --shadow: 0 4px 12px rgba(0,0,0,0.08);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: linear-gradient(135deg, #e8f4ff 0%, #d1e8ff 100%);
+            background-attachment: fixed;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        header {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 30px 40px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #4a90e2, #3a7bd5, #5da8ff);
+        }
+        
+        .server-title {
+            color: var(--secondary);
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .server-title i {
+            color: var(--primary);
+            font-size: 2.5rem;
+        }
+        
+        .server-subtitle {
+            color: #7f8c8d;
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+        
+        .server-info-box {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        
+        .info-card {
+            background: var(--light);
+            padding: 18px 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            min-width: 250px;
+            text-align: center;
+            transition: var(--transition);
+            flex: 1;
+            max-width: 300px;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+        }
+        
+        .info-card i {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .info-card h3 {
+            color: var(--secondary);
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .info-card p {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+            word-break: break-all;
+        }
+        
+        .wiki-section {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--light);
+        }
+        
+        .section-header i {
+            font-size: 1.8rem;
+            color: var(--primary);
+            background: rgba(74, 144, 226, 0.1);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .section-header h2 {
+            color: var(--secondary);
+            font-size: 1.8rem;
+        }
+        
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .step-card {
+            background: var(--light);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            position: relative;
+            transition: var(--transition);
+            border-left: 4px solid var(--primary);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .step-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            background: var(--primary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 8px rgba(74, 144, 226, 0.3);
+        }
+        
+        .step-card h3 {
+            color: var(--secondary);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .step-card h3 i {
+            color: var(--accent);
+        }
+        
+        .step-card ul, .step-card ol {
+            padding-left: 20px;
+            margin: 15px 0;
+            flex: 1;
+        }
+        
+        .step-card li {
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+        
+        .highlight-box {
+            background: var(--light-yellow);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            border-left: 4px solid #ffc107;
+            margin: 25px 0;
+        }
+        
+        .highlight-box h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #e67e22;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        
+        .download-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+            justify-content: center;
+        }
+        
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--primary);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            text-align: center;
+            justify-content: center;
+        }
+        
+        .download-btn:hover {
+            background: #3a7bd5;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+        }
+        
+        .download-btn i {
+            font-size: 1.2rem;
+        }
+        
+        .qq-group-box {
+            background: var(--light-blue);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            margin: 30px 0;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .qq-group-box h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        
+        .qq-number {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: 2px;
+            margin: 10px 0;
+            text-shadow: 0 2px 4px rgba(74, 144, 226, 0.2);
+        }
+        
+        .feature-list {
+            background: var(--light-blue);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            margin: 25px 0;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .feature-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 500;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            transition: var(--transition);
+        }
+        
+        .feature-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            background: var(--accent);
+            color: white;
+        }
+        
+        footer {
+            background: var(--secondary);
+            color: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            margin-top: 40px;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            color: var(--accent);
+        }
+        
+        .footer-section p {
+            margin: 8px 0;
+            color: #ecf0f1;
+        }
+        
+        .logo-section {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .server-logo {
+            height: 80px;
+            filter: brightness(0) invert(1);
+        }
+        
+        .copyright {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+            color: #bdc3c7;
+            font-size: 0.9rem;
+        }
+        
+        .content-center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .note {
+            color: #666;
+            font-size: 0.9em;
+            font-style: italic;
+            margin-top: 10px;
+        }
+        
+        code {
+            background: #f0f0f0;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: Consolas, monospace;
+            word-break: break-word;
+        }
+        
+        .tab-container {
+            margin: 20px 0;
+        }
+        
+        .tab-buttons {
+            display: flex;
+            border-bottom: 2px solid var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .tab-btn {
+            padding: 12px 24px;
+            background: #f8f8f8;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            border-radius: 8px 8px 0 0;
+        }
+        
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @media (max-width: 768px) {
+            .server-title {
+                font-size: 2.2rem;
+            }
+            
+            .server-info-box {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .info-card {
+                max-width: 100%;
+                width: 100%;
+            }
+            
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-header h2 {
+                font-size: 1.5rem;
+            }
+            
+            .download-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .download-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .tab-buttons {
+                flex-direction: column;
+            }
+            
+            .tab-btn {
+                border-radius: 0;
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="server-title">
+                <i class="fas fa-cube"></i>
+                XiXi我的世界Java版1.21.8服务器
+            </h1>
+            <p class="server-subtitle">WANG 服务器 - 原版生存，即刻启程！</p>
+            
+            <div class="server-info-box">
+                <div class="info-card">
+                    <i class="fas fa-globe-americas"></i>
+                    <h3>服务器地址</h3>
+                    <p>as.wangiii.top</p>
+                </div>
+                
+                <div class="info-card">
+                    <i class="fas fa-code-branch"></i>
+                    <h3>游戏版本</h3>
+                    <p>Java版 1.21.8</p>
+                </div>
+                
+                <div class="info-card">
+                    <i class="fas fa-users"></i>
+                    <h3>游戏模式</h3>
+                    <p>原版生存</p>
+                </div>
+            </div>
+        </header>
+        
+        <section class="wiki-section">
+            <div class="section-header">
+                <i class="fas fa-tools"></i>
+                <h2>准备工作</h2>
+            </div>
+            
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3><i class="fas fa-coffee"></i> 安装Java</h3>
+                    <p>确保您的系统已安装最新版Java</p>
+                    <ul>
+                        <li>下载官方Java开发工具包</li>
+                        <li>确保系统环境变量配置正确</li>
+                        <li>验证安装: <code>java -version</code></li>
+                    </ul>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3><i class="fas fa-download"></i> 下载游戏启动器</h3>
+                    <p>选择以下任一启动器：</p>
+                    <div class="download-buttons">
+                        <a href="https://afdian.com/p/0164034c016c11ebafcb52540025c377" class="download-btn" target="_blank">
+                            <i class="fas fa-rocket"></i> PCL2启动器
+                        </a>
+                        <a href="https://hmcl.huangyuhui.net/" class="download-btn" target="_blank">
+                            <i class="fas fa-cube"></i> HMCL启动器
+                        </a>
+                    </div>
+                    <p class="note">官方启动器提供最稳定的游戏体验</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="wiki-section">
+            <div class="section-header">
+                <i class="fas fa-box-open"></i>
+                <h2>安装游戏</h2>
+            </div>
+            
+            <div class="tab-container">
+                <div class="tab-buttons">
+                    <button class="tab-btn active" onclick="openTab(event, 'tab1')">官方启动器</button>
+                    <button class="tab-btn" onclick="openTab(event, 'tab2')">第三方启动器</button>
+                </div>
+                
+                <div id="tab1" class="tab-content active">
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <h3><i class="fas fa-cloud-download-alt"></i> 安装官方启动器</h3>
+                        <ol>
+                            <li>访问Minecraft官网: <a href="https://www.minecraft.net/zh-hans" target="_blank">https://www.minecraft.net/zh-hans</a></li>
+                            <li>下载并安装官方启动器</li>
+                            <li>使用您的Mojang/Microsoft账户登录</li>
+                            <li>在"游戏安装"中选择Java版1.21.8</li>
+                            <li>点击"安装"并等待完成</li>
+                        </ol>
+                        
+                        <div class="highlight-box">
+                            <h3><i class="fas fa-exclamation-circle"></i> 重要提示</h3>
+                            <p>必须选择<strong>Java版 1.21.8</strong>，否则无法连接到服务器！</p>
+                            <p>如果您没有账户，需要先购买游戏</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="tab2" class="tab-content">
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <h3><i class="fas fa-download"></i> 使用第三方启动器</h3>
+                        <ol>
+                            <li>下载并安装您选择的第三方启动器</li>
+                            <li>添加您的Mojang/Microsoft账户</li>
+                            <li>创建新的游戏实例，选择版本1.21.8</li>
+                            <li>等待游戏文件下载完成</li>
+                            <li>启动游戏</li>
+                        </ol>
+                        
+                        <div class="highlight-box">
+                            <h3><i class="fas fa-info-circle"></i> 注意事项</h3>
+                            <ul>
+                                <li>使用第三方启动器仍需拥有正版游戏账户</li>
+                                <li>建议分配4GB以上内存以获得流畅体验</li>
+                                <li>如果遇到问题，尝试使用官方启动器</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="wiki-section">
+            <div class="section-header">
+                <i class="fas fa-plug"></i>
+                <h2>连接服务器</h2>
+            </div>
+            
+            <div class="step-card">
+                <div class="step-number">4</div>
+                <h3><i class="fas fa-sign-in-alt"></i> 加入服务器</h3>
+                <ol>
+                    <li>启动《我的世界》Java版 1.21.8</li>
+                    <li>进入游戏后点击"多人游戏"</li>
+                    <li>点击"添加服务器"</li>
+                    <li>输入服务器地址: <code>as.wangiii.top</code></li>
+                    <li>点击"完成"并加入游戏</li>
+                </ol>
+            </div>
+            
+            <div class="highlight-box">
+                <h3><i class="fas fa-question-circle"></i> 常见问题解决</h3>
+                <ul>
+                    <li><strong>无法连接：</strong> 检查是否使用了正确的游戏版本(1.21.8)</li>
+                    <li><strong>版本不匹配：</strong> 确保服务器和客户端版本一致</li>
+                    <li><strong>连接超时：</strong> 检查网络连接，尝试重新连接</li>
+                    <li><strong>其他问题：</strong> 请在QQ群中咨询管理员</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section class="wiki-section">
+            <div class="section-header">
+                <i class="fas fa-star"></i>
+                <h2>服务器特色</h2>
+            </div>
+            
+            <div class="feature-list">
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle"></i> 纯净原版生存
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-shield-alt"></i> 长期稳定运营
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-heart"></i> 友好玩家社区
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-sync"></i> 24/7在线
+                    </div>
+                </div>
+            </div>
+            
+            <div class="qq-group-box">
+                <h3><i class="fab fa-qq"></i> 加入QQ群获取帮助</h3>
+                <p>获取最新更新和问题解答</p>
+                <div class="qq-number">275502309</div>
+                <p>入群请备注"XiXi服务器玩家"</p>
+            </div>
+        </section>
+        
+        <section class="wiki-section">
+            <div class="section-header">
+                <i class="fas fa-gamepad"></i>
+                <h2>开始游戏</h2>
+            </div>
+            
+            <div class="content-center">
+                <h3 style="font-size: 2rem; color: var(--accent); margin-bottom: 20px;">
+                    <i class="fas fa-trophy"></i> 欢迎加入XiXi服务器！
+                </h3>
+                <p style="font-size: 1.2rem; max-width: 600px; margin: 0 auto 30px;">
+                    您已成功连接到XiXi我的世界Java版1.21.8服务器，现在可以开始您的原版生存冒险之旅了！
+                </p>
+                <div class="info-card" style="max-width: 400px;">
+                    <h3>服务器IP地址</h3>
+                    <p style="font-size: 1.8rem; word-break: break-all;">as.wangiii.top</p>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>联系方式</h3>
+                    <p><i class="fab fa-qq"></i> QQ群: 275502309</p>
+                    <p><i class="fas fa-envelope"></i> Email: xnnserver@gmail.com</p>
+                    <p><i class="fas fa-headset"></i> 技术支持: 群内@管理员</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>服务器信息</h3>
+                    <p>版本: Java版 1.21.8</p>
+                    <p>游戏模式: 原版生存</p>
+                    <p>在线时间: 24/7</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>相关资源</h3>
+                    <p><a href="https://www.minecraft.net/zh-hans" style="color: #ecf0f1;" target="_blank">官方游戏下载</a></p>
+                    <p><a href="https://hmcl.huangyuhui.net/" style="color: #ecf0f1;" target="_blank">HMCL启动器</a></p>
+                    <p><a href="https://www.minecraft.net/zh-hans" style="color: #ecf0f1;" target="_blank">购买游戏</a></p>
+                </div>
+            </div>
+            
+            <div class="logo-section">
+                <img src="https://github.com/WONGIII/picx-images-hosting/raw/master/1000021619.41yalp3fs9.png" 
+                     alt="WANG Logo" 
+                     class="server-logo">
+            </div>
+            
+            <div class="copyright">
+                <p>2025 WANG XiXi我的世界服务器</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tabbuttons;
+            
+            // 隐藏所有标签内容
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            
+            // 取消所有按钮的激活状态
+            tabbuttons = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tabbuttons.length; i++) {
+                tabbuttons[i].classList.remove("active");
+            }
+            
+            // 显示当前标签内容并激活按钮
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+</body>
+</html>
